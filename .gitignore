@@ -2,6 +2,7 @@
 
 # dataset
 /cinema-data
+src/data.json
 
 # dependencies
 /node_modules
