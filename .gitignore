@@ -3,6 +3,7 @@
 # dataset
 /cinema-data
 src/data.json
+dumb.json
 
 # dependencies
 /node_modules

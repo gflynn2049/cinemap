@@ -17,6 +17,8 @@
   "type": "module",
   "scripts": {
     "fetch": "git clone https://github.com/gflynn2049/cinema-data.git cinema-data 2> /dev/null || git -C cinema-data pull",
+    "data": "node scripts/process.mjs",
+    "postinstall": "npm run fetch && npm run data",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
