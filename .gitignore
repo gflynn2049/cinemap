@@ -5,6 +5,8 @@
 src/data.json
 dumb.json
 
+dist
+
 # dependencies
 /node_modules
 /.pnp

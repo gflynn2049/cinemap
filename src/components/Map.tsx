@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { geo } from "../Store";
-import "./Map.css";
+import { Theatre } from "../types";
+import "./Map.scss";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZ2ZseW5uMjA0OSIsImEiOiJjbG96aHl0ZXQwMHZkMmltajdkdW1peDVhIn0.LgRaT0h7orSxK5vlxHd0rg";
 
-const Map = () => {
+const Map = (props: { setCurrent: (current: Theatre) => void }) => {
   const mapContainerRef = useRef(null);
 
   const [lng, setLng] = useState(118.7917);
@@ -151,12 +152,14 @@ const Map = () => {
       });
 
       map.on("click", "layer", (e: any) => {
-        if (!e.features) return;
+        if (!e.features) {
+          return;
+        }
 
         const coordinates = e.features[0].geometry.coordinates.slice();
         const properties = e.features[0].properties;
 
-        console.log({ coordinates, properties });
+        props.setCurrent({ coordinates, properties });
       });
 
       // mouse event listener
