@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import { geo } from "./Store";
 import "./Map.css";
 
 mapboxgl.accessToken =
@@ -8,14 +9,17 @@ mapboxgl.accessToken =
 const Map = () => {
   const mapContainerRef = useRef(null);
 
-  const [lng, setLng] = useState(118.7856);
-  const [lat, setLat] = useState(32.0391);
-  const [zoom, setZoom] = useState(13);
+  const [lng, setLng] = useState(118.7917);
+  const [lat, setLat] = useState(32.0528);
+  const [zoom, setZoom] = useState(7);
 
+  let map = {};
+
+  // init map
   useEffect(() => {
     if (!mapContainerRef.current) return;
 
-    const map = new mapboxgl.Map({
+    map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/gflynn2049/clp01kis900b101pq97kvhl5i",
       center: [lng, lat],
@@ -33,7 +37,68 @@ const Map = () => {
     });
 
     return () => map.remove();
-  }, [mapContainerRef]);
+  }, []);
+
+  useEffect(() => {
+    if (!mapContainerRef.current) return;
+
+    map.on("load", () => {
+      map.addSource("source", {
+        type: "geojson",
+        data: geo,
+        cluster: true,
+        clusterMaxZoom: 12,
+        clusterRadius: 25,
+      });
+
+      map.addLayer({
+        id: "clusters",
+        type: "circle",
+        source: "source",
+        filter: ["has", "point_count"],
+        paint: {
+          "circle-color": "#d3cdc0",
+          "circle-stroke-color": "#a59a83",
+          "circle-stroke-width": 1,
+          "circle-radius": 10,
+        },
+      });
+
+      map.addLayer({
+        id: "clusters-count",
+        type: "symbol",
+        source: "source",
+        filter: ["has", "point_count"],
+        layout: {
+          "text-field": "{point_count_abbreviated}",
+          "text-size": 12,
+          "text-allow-overlap": true,
+        },
+        paint: {
+          "text-color": "white",
+        },
+      });
+
+      map.addLayer({
+        id: "layer",
+        type: "symbol",
+        source: "source",
+        layout: {
+          "text-field": ["get", "影城名称"],
+          "text-size": 12,
+          "text-offset": [0, 1],
+          "text-anchor": "top",
+          "icon-allow-overlap": true,
+        },
+        paint: {
+          "text-color": "#7e6c56",
+          "text-halo-color": "#fff",
+          "text-halo-width": 1,
+          "text-halo-blur": 0,
+        },
+      });
+    });
+  }, []);
 
   return (
     <React.Fragment>

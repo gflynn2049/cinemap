@@ -7,12 +7,14 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "csv-parser": "^3.0.0",
+    "fuse.js": "^7.0.0",
     "mapbox-gl": "^2.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "type": "module",
   "scripts": {
     "fetch": "git clone https://github.com/gflynn2049/cinema-data.git cinema-data 2> /dev/null || git -C cinema-data pull",
     "start": "react-scripts start",

@@ -18,7 +18,7 @@ import fs from "fs";
         properties: { ...entry },
         geometry: {
           type: "Point",
-          coordinates: [],
+          coordinates: [], // api 太贵了！怎么办！
         },
       };
     })
