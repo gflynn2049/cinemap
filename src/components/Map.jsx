@@ -15,6 +15,25 @@ const Map = () => {
 
   let map = {};
 
+  function createColorPoint(...color) {
+    const d = 40;
+    const r = d / 2;
+    const r2 = r ** 2;
+    const bytesPerPixel = 4;
+
+    const data = new Uint8Array(d * d * bytesPerPixel);
+
+    for (let x = 0; x < d; x++) {
+      for (let y = 0; y < d; y++) {
+        if ((x - r) ** 2 + (y - r) ** 2 >= r2) continue;
+
+        const offset = (y * d + x) * bytesPerPixel;
+        for (let b = 0; b < bytesPerPixel; b++) data[offset + b] = color[b];
+      }
+    }
+    return { width: d, height: d, data };
+  }
+
   // init map
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -36,6 +55,11 @@ const Map = () => {
       setZoom(map.getZoom().toFixed(2));
     });
 
+    map.on("load", () => {
+      map.addImage("#imax", createColorPoint(98, 189, 180, 180));
+      map.addImage("#dolby", createColorPoint(224, 155, 81, 180));
+    });
+
     return () => map.remove();
   }, []);
 
@@ -49,6 +73,35 @@ const Map = () => {
         cluster: true,
         clusterMaxZoom: 12,
         clusterRadius: 25,
+      });
+
+      map.addLayer({
+        id: "layer",
+        type: "symbol",
+        source: "source",
+        layout: {
+          "icon-image": [
+            "case",
+            ["==", ["get", "type"], "imax"],
+            "#imax",
+            ["==", ["get", "type"], "dolby"],
+            "#dolby",
+            "#fff", // other
+          ],
+          "icon-size": 0.25,
+          "text-field": ["get", "影城名称"],
+          "text-size": 12,
+          "text-offset": [0, 0.5],
+          "text-anchor": "top",
+
+          "icon-allow-overlap": true,
+        },
+        paint: {
+          "text-color": "#7e6c56",
+          "text-halo-color": "#fff",
+          "text-halo-width": 1,
+          "text-halo-blur": 0,
+        },
       });
 
       map.addLayer({
@@ -76,25 +129,6 @@ const Map = () => {
         },
         paint: {
           "text-color": "white",
-        },
-      });
-
-      map.addLayer({
-        id: "layer",
-        type: "symbol",
-        source: "source",
-        layout: {
-          "text-field": ["get", "影城名称"],
-          "text-size": 12,
-          "text-offset": [0, 1],
-          "text-anchor": "top",
-          "icon-allow-overlap": true,
-        },
-        paint: {
-          "text-color": "#7e6c56",
-          "text-halo-color": "#fff",
-          "text-halo-width": 1,
-          "text-halo-blur": 0,
         },
       });
 
