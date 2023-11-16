@@ -23,8 +23,6 @@ import fs from "fs";
         });
       })
       .on("end", () => {
-        // res[fileName] = { data: data };
-        console.log(res);
         fs.writeFile("./src/data.json", JSON.stringify(res), "utf-8", (err) => {
           if (err) console.log(err);
         });

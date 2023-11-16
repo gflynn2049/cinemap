@@ -11,7 +11,7 @@ export const geo = Object.freeze({
   type: "FeatureCollection",
   features: Object.values(rawData).flatMap((i) => i.data.features),
 });
-console.log(JSON.stringify(geo));
+// console.log(JSON.stringify(geo));
 
 // export const theatres = Object.freeze(
 //   geo.features.map((i) => ({

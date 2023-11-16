@@ -27,7 +27,7 @@ const Map = () => {
     });
 
     // (the +/- zoom buttons)
-    map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+    map.addControl(new mapboxgl.NavigationControl());
 
     // display coordinates
     map.on("move", () => {
@@ -97,14 +97,57 @@ const Map = () => {
           "text-halo-blur": 0,
         },
       });
+
+      // inspect a cluster on click
+      map.on("click", "clusters", (e) => {
+        const features = map.queryRenderedFeatures(e.point, {
+          layers: ["clusters"],
+        });
+        const clusterId = features[0].properties.cluster_id;
+        map
+          .getSource("source")
+          .getClusterExpansionZoom(clusterId, (err, zoom) => {
+            if (err) return;
+
+            map.easeTo({
+              center: features[0].geometry.coordinates,
+              zoom: zoom,
+            });
+          });
+      });
+
+      // mouse event listener
+      map.on("mouseenter", "clusters", () => {
+        map.getCanvas().style.cursor = "pointer";
+      });
+      map.on("mouseleave", "clusters", () => {
+        map.getCanvas().style.cursor = "";
+      });
+      map.on("mouseenter", "layer", () => {
+        map.getCanvas().style.cursor = "pointer";
+      });
+      map.on("mouseleave", "layer", () => {
+        map.getCanvas().style.cursor = "";
+      });
+
+      // get user's location
+      map.addControl(
+        new mapboxgl.GeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true,
+          },
+          trackUserLocation: true,
+          showUserHeading: true,
+        })
+      );
     });
   }, []);
 
   return (
     <React.Fragment>
-      {/* <div className="sidebar">
+      <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div> */}
+      </div>
       <div className="map-container" ref={mapContainerRef} />
     </React.Fragment>
   );
