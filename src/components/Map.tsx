@@ -13,9 +13,9 @@ const Map = () => {
   const [lat, setLat] = useState(32.0528);
   const [zoom, setZoom] = useState(7);
 
-  let map = {};
+  let map: any = {};
 
-  function createColorPoint(...color) {
+  function createColorPoint(...color: number[]) {
     const d = 40;
     const r = d / 2;
     const r2 = r ** 2;
@@ -133,14 +133,14 @@ const Map = () => {
       });
 
       // inspect a cluster on click
-      map.on("click", "clusters", (e) => {
+      map.on("click", "clusters", (e: any) => {
         const features = map.queryRenderedFeatures(e.point, {
           layers: ["clusters"],
         });
         const clusterId = features[0].properties.cluster_id;
         map
           .getSource("source")
-          .getClusterExpansionZoom(clusterId, (err, zoom) => {
+          .getClusterExpansionZoom(clusterId, (err: any, zoom: any) => {
             if (err) return;
 
             map.easeTo({
@@ -148,6 +148,15 @@ const Map = () => {
               zoom: zoom,
             });
           });
+      });
+
+      map.on("click", "layer", (e: any) => {
+        if (!e.features) return;
+
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const properties = e.features[0].properties;
+
+        console.log({ coordinates, properties });
       });
 
       // mouse event listener
