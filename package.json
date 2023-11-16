@@ -2,6 +2,7 @@
   "name": "cinema",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gflynn2049.github.io/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -21,9 +22,11 @@
     "data": "node scripts/process.mjs",
     "postinstall": "npm run fetch && npm run data",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run postinstall && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +48,7 @@
   },
   "devDependencies": {
     "@types/mapbox-gl": "^2.7.18",
+    "gh-pages": "^6.0.0",
     "tailwindcss": "^3.3.5"
   }
 }
