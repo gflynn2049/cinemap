@@ -1,11 +1,20 @@
-.detail {
-  backdrop-filter: saturate(180%) blur(30px);
-  position: fixed;
+.detail-container {
+  position: absolute;
   bottom: 0;
   min-height: 220px;
-  max-height: 36vw;
+  max-height: 80vh;
   width: 100vw;
-
+  justify-content: center;
+  display: flex;
+}
+.detail {
+  overflow: scroll;
+  backdrop-filter: saturate(180%) blur(30px);
+  position: relative;
+  border-top-right-radius: 18px;
+  border-top-left-radius: 18px;
+  width: 95%;
+  max-width: 600px;
   background-color: rgb(255, 255, 255);
   color: #000000;
   display: flex;
@@ -14,6 +23,7 @@
   transform: translateY(100%);
   transition: all 0.4s;
   z-index: 1000; // higher than the progress-bar
+  padding: 30px;
 }
 
 .detail.show {

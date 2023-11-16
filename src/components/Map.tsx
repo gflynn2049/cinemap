@@ -10,9 +10,9 @@ mapboxgl.accessToken =
 const Map = (props: { setCurrent: (current: Theatre) => void }) => {
   const mapContainerRef = useRef(null);
 
-  const [lng, setLng] = useState(118.7917);
-  const [lat, setLat] = useState(32.0528);
-  const [zoom, setZoom] = useState(7);
+  const [lng, setLng] = useState(114.2414);
+  const [lat, setLat] = useState(34.6724);
+  const [zoom, setZoom] = useState(4);
 
   let map: any = {};
 
