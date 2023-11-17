@@ -10,7 +10,7 @@ export const Detail = (props: {
   // {
   //   "coordinates": [109.500732421875, 30.342065246371632],
   //   "properties": {
-  //     "影城名称": "南京万达影城（江宁万达广场店）",
+  //     "Theatre": "南京万达影城（江宁万达广场店）",
   //     "放映机型号": "IMAX 気灯",
   //     "开业时间": "2013年12月21日",
   //     "银幕宽度（米）": "",
@@ -26,7 +26,7 @@ export const Detail = (props: {
     <div className="detail-container" onClick={() => props.setCurrent()}>
       <div className={clsx("detail blur-white", props.current && "show")}>
         <div>
-          <h1 className="text-lg">{props.current?.properties["影城名称"]}</h1>
+          <h1 className="text-lg">{props.current?.properties["Theatre"]}</h1>
           <p className="text-gray-500 text-sm"></p>
           <table className="px-2 mt-3 mb-3 text-sm">
             <tbody>
@@ -34,7 +34,7 @@ export const Detail = (props: {
                 Object.entries(props.current.properties).map(
                   ([key, value]) =>
                     key != "type" &&
-                    key != "影城名称" &&
+                    key != "Theatre" &&
                     value.length > 0 && (
                       <tr key={key}>
                         <td className="pr-4 text-right text-gray-600 py-1">

@@ -3,9 +3,10 @@ import fs from "fs";
 
 (async () => {
   const res = {};
-  const fileNames = ["imax", "dolby"];
+  const fileNames = ["imax", "dolby", "dolby.us"];
   for (const fileName of fileNames) {
-    res[fileName] = {
+    const fn = "dolby" || "dolby.us" ? "dolby" : "imax";
+    res[fn] = {
       data: { features: [] },
     };
 
@@ -15,9 +16,9 @@ import fs from "fs";
       .on("data", (entry) => {
         const { lng, lat, ...other } = entry;
 
-        res[fileName].data.features.push({
+        res[fn].data.features.push({
           type: "Feature",
-          properties: { ...other, type: fileName },
+          properties: { ...other, type: fn },
           geometry: {
             type: "Point",
             coordinates: [lng, lat],

@@ -36,5 +36,5 @@ export const filteredGeo = (displayImax: boolean, displayDolby: boolean) => {
 // console.log(JSON.stringify(theatres));
 
 // export const fuseByName = new Fuse(theatres, {
-//   keys: ["properties.影城名称"],
+//   keys: ["properties.Theatre"],
 // });
