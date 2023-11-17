@@ -13,12 +13,14 @@ import fs from "fs";
     fs.createReadStream(`../cinema-data/${fileName}.csv`)
       .pipe(csv())
       .on("data", (entry) => {
+        const { lng, lat, ...other } = entry;
+
         res[fileName].data.features.push({
           type: "Feature",
-          properties: { ...entry, type: fileName },
+          properties: { ...other, type: fileName },
           geometry: {
             type: "Point",
-            coordinates: [Math.random() * 20 + 100, Math.random() * 20 + 30], // api 太贵了！怎么办！
+            coordinates: [lng, lat],
           },
         });
       })
