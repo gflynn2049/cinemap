@@ -24,7 +24,7 @@ function App() {
         />
       </MapProvider>
       <Modal current={!!current} setCurrent={() => setCurrent(null)}>
-        <Detail current={current} />
+        <Detail current={current} setCurrent={() => setCurrent(null)} />
       </Modal>
     </div>
   );

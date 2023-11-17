@@ -3,7 +3,10 @@ import "./Detail.scss";
 import { Theatre } from "../types";
 import clsx from "clsx";
 
-export const Detail = (props: { current: Theatre | null }) => {
+export const Detail = (props: {
+  current: Theatre | null;
+  setCurrent: () => void;
+}) => {
   // {
   //   "coordinates": [109.500732421875, 30.342065246371632],
   //   "properties": {
@@ -20,13 +23,12 @@ export const Detail = (props: { current: Theatre | null }) => {
   // }
 
   return (
-    <div className="detail-container">
+    <div className="detail-container" onClick={() => props.setCurrent()}>
       <div className={clsx("detail", props.current && "show")}>
-        {/* {props.current?.coordinates} */}
         <div>
           <h1 className="text-lg">{props.current?.properties["影城名称"]}</h1>
           <p className="text-gray-500 text-sm"></p>
-          <table className="px-2 mt-5 mb-3 text-sm">
+          <table className="px-2 mt-3 mb-3 text-sm">
             <tbody>
               {props.current &&
                 Object.entries(props.current.properties).map(
@@ -35,10 +37,10 @@ export const Detail = (props: { current: Theatre | null }) => {
                     key != "影城名称" &&
                     value.length > 0 && (
                       <tr key={key}>
-                        <td className="pr-5 text-right text-gray-600 py-2">
+                        <td className="pr-4 text-right text-gray-600 py-1">
                           {key}
                         </td>
-                        <td className="py-2">{value}</td>
+                        <td className="py-1">{value}</td>
                       </tr>
                     )
                 )}
