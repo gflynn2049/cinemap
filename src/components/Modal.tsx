@@ -20,7 +20,7 @@ export const Modal = (props: {
         }}
       />
       <div
-        className="bg-white absolute transition-all duration-200 ease-out border-gray-200 bottom-0 left-0 right-0 border-t"
+        className="bg-white absolute transition-all duration-200 ease-out bottom-0 left-0 right-0"
         style={props.current ? {} : { transform: "translateY(100%)" }}
       >
         {props.children}
