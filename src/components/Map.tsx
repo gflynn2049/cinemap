@@ -199,7 +199,7 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
 
   return (
     <React.Fragment>
-      <div className="sidebar">
+      <div className="sidebar text-sm absolute m-4 p-2 shadow rounded-3xl pr-4 pl-4 font-bold tracking-tight text-gray-800 dark:text-white backdrop-blur-md bg-white/40 shadow dark:bg-gray-800/30">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div className="map-container" ref={mapContainer} />

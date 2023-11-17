@@ -30,12 +30,12 @@ export const FloatControl = (props: {
 
   return (
     <div className="fixed bottom-0 left-0 mx-3 mb-10">
-      <div className="blur-white rounded shadow flex flex-col p-2">
+      <div className="rounded-xl shadow flex flex-col p-2 backdrop-blur-md bg-white/80 shadow dark:bg-gray-800/80">
         {brands.map((brand) => (
           <button
             key={brand}
             className={clsx(
-              "py-2 px-1 focus:outline-none outline-none transition-all duration-300",
+              "tracking-tight py-2 px-1 focus:outline-none outline-none transition-all duration-300",
               ((!props.displayDolby && brand == "dolby") ||
                 (!props.displayImax && brand == "imax")) &&
                 "opacity-25"
