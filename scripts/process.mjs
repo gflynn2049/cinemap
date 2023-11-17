@@ -5,7 +5,7 @@ import fs from "fs";
   const res = {};
   const fileNames = ["imax", "dolby", "dolby.us"];
   for (const fileName of fileNames) {
-    const fn = "dolby" || "dolby.us" ? "dolby" : "imax";
+    const fn = fileName == "dolby" || fileName == "dolby.us" ? "dolby" : "imax";
     res[fn] = {
       data: { features: [] },
     };
