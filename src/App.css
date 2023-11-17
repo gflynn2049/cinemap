@@ -1,0 +1,4 @@
+.blur-white {
+  backdrop-filter: saturate(3) blur(30px);
+  background-color: rgba(255, 255, 255, 0.9);
+}

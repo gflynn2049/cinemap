@@ -24,7 +24,7 @@ export const Detail = (props: {
 
   return (
     <div className="detail-container" onClick={() => props.setCurrent()}>
-      <div className={clsx("detail", props.current && "show")}>
+      <div className={clsx("detail blur-white", props.current && "show")}>
         <div>
           <h1 className="text-lg">{props.current?.properties["影城名称"]}</h1>
           <p className="text-gray-500 text-sm"></p>

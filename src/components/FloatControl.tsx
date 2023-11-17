@@ -24,7 +24,7 @@ export const FloatControl = (props: {
 
   return (
     <div className="fixed bottom-0 left-0 mx-3 mb-10">
-      <div className="bg-white rounded shadow flex flex-col p-2">
+      <div className="blur-white rounded shadow flex flex-col p-2">
         {brands.map((brand) => (
           <button
             key={brand}
