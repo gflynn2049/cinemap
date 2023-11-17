@@ -28,6 +28,10 @@ export const FloatControl = (props: {
     }
   }, [map, props.displayImax, props.displayDolby]);
 
+  const getBrandDisplayName = {
+    dolby: "Dolby",
+    imax: "IMAX",
+  };
   return (
     <div className="fixed bottom-0 left-0 mx-3 mb-10">
       <div className="rounded-xl shadow flex flex-col p-2 backdrop-blur-md bg-white/80 shadow dark:bg-gray-800/80">
@@ -51,7 +55,9 @@ export const FloatControl = (props: {
               }
             }}
           >
-            <div className="font-bold text-base">{brand.toUpperCase()}</div>
+            <div className="font-bold text-sm">
+              {getBrandDisplayName[brand]}
+            </div>
           </button>
         ))}
 
