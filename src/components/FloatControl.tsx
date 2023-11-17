@@ -3,6 +3,7 @@ import { brands, brandToColor } from "../constants";
 import clsx from "clsx";
 import { useMapContext } from "./MapContext";
 import { filteredGeo } from "../Store";
+import { useTranslation } from "react-i18next";
 
 export const FloatControl = (props: {
   displayDolby: boolean;
@@ -11,6 +12,11 @@ export const FloatControl = (props: {
   setDisplayImax: () => void;
 }) => {
   const { map } = useMapContext();
+  const { i18n } = useTranslation();
+
+  const changeLanguage = (lng: "en" | "zh") => {
+    i18n.changeLanguage(lng);
+  };
 
   useEffect(() => {
     if (map?.current) {
@@ -48,6 +54,14 @@ export const FloatControl = (props: {
             <div className="font-bold text-xs">{brand.toUpperCase()}</div>
           </button>
         ))}
+
+        {/* <button
+          className={i18n.language != "en" ? "text-gray-400" : ""}
+          onClick={() => changeLanguage("en")}
+        >
+          EN
+        </button>
+        <button onClick={() => changeLanguage("zh")}>简</button> */}
       </div>
     </div>
   );

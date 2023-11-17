@@ -1,0 +1,11 @@
+{
+  "theatre": "Theatre",
+  "projector": "Projector Model",
+  "date": "Day of Opening",
+  "ratio": "Aspect Ratio",
+  "width": "Width",
+  "height": "Height",
+  "size": "Screen Size",
+  "seats": "Seats",
+  "note": "Note"
+}

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import Map from "./components/Map";
 import { Theatre } from "./types";
+import Map from "./components/Map";
 import { Detail } from "./components/Detail";
 import { Modal } from "./components/Modal";
-import "./App.css";
-import "./index.css";
 import { MapProvider } from "./components/MapContext";
 import { FloatControl } from "./components/FloatControl";
+
+import "./App.css";
+import "./index.css";
+
 function App() {
   const [current, setCurrent] = useState<Theatre | null>(null);
   const [displayDolby, setDisplayDolby] = useState<boolean>(true);

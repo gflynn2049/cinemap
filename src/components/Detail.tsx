@@ -2,45 +2,40 @@ import React from "react";
 import "./Detail.scss";
 import { Theatre } from "../types";
 import clsx from "clsx";
-
+import { useTranslation } from "react-i18next";
 export const Detail = (props: {
   current: Theatre | null;
   setCurrent: () => void;
 }) => {
-  // {
-  //   "coordinates": [109.500732421875, 30.342065246371632],
-  //   "properties": {
-  //     "Theatre": "南京万达影城（江宁万达广场店）",
-  //     "放映机型号": "IMAX 気灯",
-  //     "开业时间": "2013年12月21日",
-  //     "银幕宽度（米）": "",
-  //     "银幕高度（米）": "",
-  //     "银幕面积（平方米）": "",
-  //     "座位数（个）": "400",
-  //     "备注": "假作为数据",
-  //     "type": "imax"
-  //   }
-  // }
-
+  const { t, i18n } = useTranslation();
   return (
     <div className="detail-container" onClick={() => props.setCurrent()}>
-      <div className={clsx("detail blur-white", props.current && "show")}>
+      <div
+        className={clsx(
+          "detail backdrop-blur-md bg-white/80 border border-gray-200 shadow dark:bg-gray-800/80 dark:border-gray-700",
+          props.current && "show"
+        )}
+      >
         <div>
-          <h1 className="text-lg">{props.current?.properties["Theatre"]}</h1>
-          <p className="text-gray-500 text-sm"></p>
-          <table className="px-2 mt-3 mb-3 text-sm">
+          <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {props.current?.properties["theatre"]}
+          </h1>
+
+          <table className="px-2 mt-3 mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">
             <tbody>
               {props.current &&
                 Object.entries(props.current.properties).map(
                   ([key, value]) =>
                     key != "type" &&
-                    key != "Theatre" &&
+                    key != "theatre" &&
                     value.length > 0 && (
                       <tr key={key}>
-                        <td className="pr-4 text-right text-gray-600 py-1">
-                          {key}
+                        <td className="pr-4 text-gray-500 dark:text-gray-400 text-right py-1">
+                          {t(key)}
                         </td>
-                        <td className="py-1">{value}</td>
+                        <td className="py-1 text-gray-800 dark:text-gray-200">
+                          {value}
+                        </td>
                       </tr>
                     )
                 )}

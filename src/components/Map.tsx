@@ -136,7 +136,7 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
             "#fff", // other
           ],
           "icon-size": 0.25,
-          "text-field": ["get", "Theatre"],
+          "text-field": ["get", "theatre"],
           "text-size": 12,
           "text-offset": [0, 0.5],
           "text-anchor": "top",
