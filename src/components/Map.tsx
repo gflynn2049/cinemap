@@ -44,7 +44,7 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
     });
 
     // (the +/- zoom buttons)
-    map.current.addControl(new mapboxgl.NavigationControl());
+    // map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
 
     // display coordinates
     map.current.on("move", () => {
@@ -111,7 +111,8 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
           },
           trackUserLocation: true,
           showUserHeading: true,
-        })
+        }),
+        "bottom-right"
       );
 
       map.current.addSource("source", {

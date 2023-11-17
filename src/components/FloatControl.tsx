@@ -35,7 +35,7 @@ export const FloatControl = (props: {
           <button
             key={brand}
             className={clsx(
-              "tracking-tight py-2 px-1 focus:outline-none outline-none transition-all duration-300",
+              "tracking-tight py-4 px-1 focus:outline-none outline-none transition-all duration-300",
               ((!props.displayDolby && brand == "dolby") ||
                 (!props.displayImax && brand == "imax")) &&
                 "opacity-25"
@@ -51,7 +51,7 @@ export const FloatControl = (props: {
               }
             }}
           >
-            <div className="font-bold text-xs">{brand.toUpperCase()}</div>
+            <div className="font-bold text-base">{brand.toUpperCase()}</div>
           </button>
         ))}
 
