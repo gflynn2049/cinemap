@@ -17,11 +17,11 @@ export const Detail = (props: {
         )}
       >
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
             {props.current?.properties["theatre"]}
           </h1>
 
-          <table className="px-2 mt-4 text-sm font-normal text-gray-700 dark:text-gray-400">
+          <table className="px-2 mt-4 text-xs font-normal text-gray-700 dark:text-gray-400">
             <tbody>
               {props.current &&
                 Object.entries(props.current.properties).map(
@@ -30,10 +30,10 @@ export const Detail = (props: {
                     key != "theatre" &&
                     value.length > 0 && (
                       <tr key={key}>
-                        <td className="pr-4 text-gray-500 dark:text-gray-400 text-right py-1">
+                        <td className="pr-1 break-keep align-top text-gray-500 dark:text-gray-400 text-right py-1">
                           {t(key)}
                         </td>
-                        <td className="py-1 text-gray-800 dark:text-gray-200">
+                        <td className="pl-2 align-top py-1 text-gray-800 dark:text-gray-200">
                           {value}
                         </td>
                       </tr>
