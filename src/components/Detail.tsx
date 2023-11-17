@@ -4,7 +4,6 @@ import { Theatre } from "../types";
 import clsx from "clsx";
 
 export const Detail = (props: { current: Theatre | null }) => {
-  console.log(JSON.stringify(props.current));
   // {
   //   "coordinates": [109.500732421875, 30.342065246371632],
   //   "properties": {

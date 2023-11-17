@@ -1,20 +1,19 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { geo } from "../Store";
 import { Theatre } from "../types";
 import "./Map.scss";
+import { useMapContext } from "./MapContext";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZ2ZseW5uMjA0OSIsImEiOiJjbG96aHl0ZXQwMHZkMmltajdkdW1peDVhIn0.LgRaT0h7orSxK5vlxHd0rg";
 
-const Map = (props: { setCurrent: (current: Theatre) => void }) => {
-  const mapContainerRef = useRef(null);
+const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
+  const { map, mapContainer } = useMapContext();
 
   const [lng, setLng] = useState(114.2414);
   const [lat, setLat] = useState(34.6724);
   const [zoom, setZoom] = useState(4);
-
-  let map: any = {};
 
   function createColorPoint(...color: number[]) {
     const d = 40;
@@ -35,40 +34,87 @@ const Map = (props: { setCurrent: (current: Theatre) => void }) => {
     return { width: d, height: d, data };
   }
 
-  // init map
   useEffect(() => {
-    if (!mapContainerRef.current) return;
-
-    map = new mapboxgl.Map({
-      container: mapContainerRef.current,
+    if (map.current) return; // initialize
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
       style: "mapbox://styles/gflynn2049/clp01kis900b101pq97kvhl5i",
       center: [lng, lat],
       zoom: zoom,
     });
 
     // (the +/- zoom buttons)
-    map.addControl(new mapboxgl.NavigationControl());
+    map.current.addControl(new mapboxgl.NavigationControl());
 
     // display coordinates
-    map.on("move", () => {
-      setLng(map.getCenter().lng.toFixed(4));
-      setLat(map.getCenter().lat.toFixed(4));
-      setZoom(map.getZoom().toFixed(2));
+    map.current.on("move", () => {
+      setLng(map.current.getCenter().lng.toFixed(4));
+      setLat(map.current.getCenter().lat.toFixed(4));
+      setZoom(map.current.getZoom().toFixed(2));
     });
 
-    map.on("load", () => {
-      map.addImage("#imax", createColorPoint(98, 189, 180, 180));
-      map.addImage("#dolby", createColorPoint(224, 155, 81, 180));
+    // todo: bind brandToColor
+    map.current.on("load", () => {
+      map.current.addImage("#imax", createColorPoint(98, 189, 180, 180));
+      map.current.addImage("#dolby", createColorPoint(224, 155, 81, 180));
     });
 
-    return () => map.remove();
-  }, []);
+    map.current.on("click", "layer", (e: any) => {
+      if (!e.features) {
+        return;
+      }
 
-  useEffect(() => {
-    if (!mapContainerRef.current) return;
+      const coordinates = e.features[0].geometry.coordinates.slice();
+      const properties = e.features[0].properties;
 
-    map.on("load", () => {
-      map.addSource("source", {
+      props.setCurrent({ coordinates, properties });
+    });
+
+    // inspect a cluster on click
+    map.current.on("click", "clusters", (e: any) => {
+      const features = map.current.queryRenderedFeatures(e.point, {
+        layers: ["clusters"],
+      });
+      const clusterId = features[0].properties.cluster_id;
+      map.current
+        .getSource("source")
+        .getClusterExpansionZoom(clusterId, (err: any, zoom: any) => {
+          if (err) return;
+
+          map.current.easeTo({
+            center: features[0].geometry.coordinates,
+            zoom: zoom,
+          });
+        });
+    });
+
+    // mouse event listener
+    map.current.on("mouseenter", "clusters", () => {
+      map.current.getCanvas().style.cursor = "pointer";
+    });
+    map.current.on("mouseleave", "clusters", () => {
+      map.current.getCanvas().style.cursor = "";
+    });
+    map.current.on("mouseenter", "layer", () => {
+      map.current.getCanvas().style.cursor = "pointer";
+    });
+    map.current.on("mouseleave", "layer", () => {
+      map.current.getCanvas().style.cursor = "";
+    });
+
+    map.current.on("load", () => {
+      // get user's location
+      map.current.addControl(
+        new mapboxgl.GeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true,
+          },
+          trackUserLocation: true,
+          showUserHeading: true,
+        })
+      );
+
+      map.current.addSource("source", {
         type: "geojson",
         data: geo,
         cluster: true,
@@ -76,7 +122,7 @@ const Map = (props: { setCurrent: (current: Theatre) => void }) => {
         clusterRadius: 25,
       });
 
-      map.addLayer({
+      map.current.addLayer({
         id: "layer",
         type: "symbol",
         source: "source",
@@ -105,7 +151,7 @@ const Map = (props: { setCurrent: (current: Theatre) => void }) => {
         },
       });
 
-      map.addLayer({
+      map.current.addLayer({
         id: "clusters",
         type: "circle",
         source: "source",
@@ -118,7 +164,7 @@ const Map = (props: { setCurrent: (current: Theatre) => void }) => {
         },
       });
 
-      map.addLayer({
+      map.current.addLayer({
         id: "clusters-count",
         type: "symbol",
         source: "source",
@@ -132,60 +178,6 @@ const Map = (props: { setCurrent: (current: Theatre) => void }) => {
           "text-color": "white",
         },
       });
-
-      // inspect a cluster on click
-      map.on("click", "clusters", (e: any) => {
-        const features = map.queryRenderedFeatures(e.point, {
-          layers: ["clusters"],
-        });
-        const clusterId = features[0].properties.cluster_id;
-        map
-          .getSource("source")
-          .getClusterExpansionZoom(clusterId, (err: any, zoom: any) => {
-            if (err) return;
-
-            map.easeTo({
-              center: features[0].geometry.coordinates,
-              zoom: zoom,
-            });
-          });
-      });
-
-      map.on("click", "layer", (e: any) => {
-        if (!e.features) {
-          return;
-        }
-
-        const coordinates = e.features[0].geometry.coordinates.slice();
-        const properties = e.features[0].properties;
-
-        props.setCurrent({ coordinates, properties });
-      });
-
-      // mouse event listener
-      map.on("mouseenter", "clusters", () => {
-        map.getCanvas().style.cursor = "pointer";
-      });
-      map.on("mouseleave", "clusters", () => {
-        map.getCanvas().style.cursor = "";
-      });
-      map.on("mouseenter", "layer", () => {
-        map.getCanvas().style.cursor = "pointer";
-      });
-      map.on("mouseleave", "layer", () => {
-        map.getCanvas().style.cursor = "";
-      });
-
-      // get user's location
-      map.addControl(
-        new mapboxgl.GeolocateControl({
-          positionOptions: {
-            enableHighAccuracy: true,
-          },
-          trackUserLocation: true,
-          showUserHeading: true,
-        })
-      );
     });
   }, []);
 
@@ -194,7 +186,7 @@ const Map = (props: { setCurrent: (current: Theatre) => void }) => {
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
-      <div className="map-container" ref={mapContainerRef} />
+      <div className="map-container" ref={mapContainer} />
     </React.Fragment>
   );
 };

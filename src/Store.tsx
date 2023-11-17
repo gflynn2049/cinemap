@@ -11,8 +11,21 @@ export const geo = Object.freeze({
   type: "FeatureCollection",
   features: Object.values(rawData).flatMap((i) => i.data.features),
 });
-console.log(JSON.stringify(geo));
 
+export const filteredGeo = (displayImax: boolean, displayDolby: boolean) => {
+  if (!displayDolby && !displayImax) return;
+  if (displayImax && displayDolby) {
+    return geo;
+  } else {
+    const returnType = displayImax ? "imax" : "dolby";
+    return {
+      ...geo,
+      features: (geo.features as any[]).filter(
+        (i) => i.properties["type"] === returnType
+      ),
+    };
+  }
+};
 // export const theatres = Object.freeze(
 //   geo.features.map((i) => ({
 //     ...i,
