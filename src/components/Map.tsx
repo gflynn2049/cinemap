@@ -5,8 +5,7 @@ import { Theatre } from "../types";
 import "./Map.scss";
 import { useMapContext } from "./MapContext";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiZ2ZseW5uMjA0OSIsImEiOiJjbG96aHl0ZXQwMHZkMmltajdkdW1peDVhIn0.LgRaT0h7orSxK5vlxHd0rg";
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN as string
 
 const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
   const { map, mapContainer } = useMapContext();
