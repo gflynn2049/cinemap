@@ -17,7 +17,7 @@ In the project directory, you can run:
 ```sh
 npm install
 
-npm postinstall # fetch the data, parse it, and save it to src/data.json
+# npm postinstall # fetch the data, parse it, and save it to src/data.json
 
 npm start
 
