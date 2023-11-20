@@ -28,6 +28,7 @@ export const Detail = (props: {
                   ([key, value]) =>
                     // key != "type" &&
                     key != "theatre" &&
+                    key != "projectorsArray" &&
                     value.length > 0 && (
                       <tr key={key}>
                         <td className="pr-1 break-keep align-top text-gray-500 dark:text-gray-400 text-right py-1">

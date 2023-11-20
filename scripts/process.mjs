@@ -10,24 +10,32 @@ import fs from "fs";
   // res[fn] = {
   const res = {
     data: { features: [] },
+    // uniqueTypes: new Set(), // HashSet for storing unique types
   };
 
   // todo: remove bom
   fs.createReadStream(`../cinema-data/${fileName}.csv`)
     .pipe(csv())
     .on("data", (entry) => {
-      const { lng, lat, ...other } = entry;
+      const { lng, lat, projector, ...other } = entry;
 
-      res.data.features.push({
+      const projectorsArray = projector.split('\n').map(item => item.trim());
+      const projectorsString = projectorsArray.join(', ')
+      const feature = {
         type: "Feature",
-        properties: { ...other },
+        properties: { ...other, projectorsArray, projectorsString },
         geometry: {
           type: "Point",
           coordinates: [lng, lat],
         },
-      });
+      };
+      res.data.features.push(feature);
+      // res.uniqueTypes.add(projector);
+
     })
     .on("end", () => {
+      // const uniqueTypesArray = Array.from(res.uniqueTypes);
+      // console.log("Unique Types:", uniqueTypesArray);
 
       fs.writeFile("./src/data.json", JSON.stringify(res), "utf-8", (err) => {
         if (err) console.log(err);

@@ -1,7 +1,7 @@
 {
   "theatre": "影城名称",
   "type": "类型",
-  "projector": "放映机型号",
+  "projectorsString": "放映机型号",
   "date": "开业时间",
   "ratio": "银幕比例",
   "width": "银幕宽度（米）",
