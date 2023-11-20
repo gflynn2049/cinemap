@@ -11,9 +11,9 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN as string
 const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
   const { map, mapContainer } = useMapContext();
 
-  const [lng, setLng] = useState(-73.9824);
-  const [lat, setLat] = useState(40.7727);
-  const [zoom, setZoom] = useState(14);
+  const [lng, setLng] = useState(63.4207);
+  const [lat, setLat] = useState(59.4362);
+  const [zoom, setZoom] = useState(1.79);
 
   function createColorPoint(...color: number[]) {
     const d = 40;
