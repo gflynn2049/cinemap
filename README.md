@@ -1,4 +1,4 @@
-# CineDb
+# CineMap
 
 This project was created with React, TypeScript, and Mapbox API.
 
@@ -12,7 +12,7 @@ REACT_APP_MAPBOXGL_ACCESS_TOKEN=YOUR_TOKEN_HERE
 
 ## Scripts
 
-In the project directory, you can run:
+In the project directory, run:
 
 ```sh
 npm install
