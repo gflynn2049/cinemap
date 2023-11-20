@@ -1,5 +1,6 @@
 {
   "theatre": "Theatre",
+  "type": "Type",
   "projector": "Projector Model",
   "date": "Day of Opening",
   "ratio": "Aspect Ratio",

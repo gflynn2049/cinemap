@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
+
 import { geo } from "../Store";
 import { Theatre } from "../types";
-import "./Map.scss";
 import { useMapContext } from "./MapContext";
+import "./Map.scss";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN as string
 
 const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
   const { map, mapContainer } = useMapContext();
 
-  const [lng, setLng] = useState(114.2414);
-  const [lat, setLat] = useState(34.6724);
-  const [zoom, setZoom] = useState(4);
+  const [lng, setLng] = useState(-73.9824);
+  const [lat, setLat] = useState(40.7727);
+  const [zoom, setZoom] = useState(14);
 
   function createColorPoint(...color: number[]) {
     const d = 40;
@@ -140,8 +141,11 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
           "text-size": 12,
           "text-offset": [0, 0.5],
           "text-anchor": "top",
-
           "icon-allow-overlap": true,
+          // "icon-ignore-placement": true,
+          // "text-allow-overlap": true,
+          // "text-ignore-placement": false
+
         },
         paint: {
           "text-color": "#7e6c56",

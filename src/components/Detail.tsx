@@ -26,7 +26,7 @@ export const Detail = (props: {
               {props.current &&
                 Object.entries(props.current.properties).map(
                   ([key, value]) =>
-                    key != "type" &&
+                    // key != "type" &&
                     key != "theatre" &&
                     value.length > 0 && (
                       <tr key={key}>

@@ -9,7 +9,7 @@ export const rawData = Object.freeze(raw);
 // export const geo = rawData.imax.data;
 export const geo = Object.freeze({
   type: "FeatureCollection",
-  features: Object.values(rawData).flatMap((i) => i.data.features),
+  features: Object.values(rawData).flatMap((i) => i.features),
 });
 
 export const filteredGeo = (displayImax: boolean, displayDolby: boolean) => {
