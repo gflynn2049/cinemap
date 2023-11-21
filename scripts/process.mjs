@@ -14,6 +14,16 @@ import fs from "fs";
     .on("data", (entry) => {
       const { lng, lat, projector, ...other } = entry;
 
+      const trimmedOther = {};
+      for (const key in other) {
+        if (other.hasOwnProperty(key)) {
+          trimmedOther[key] = other[key].trim();
+          if (trimmedOther[key] === '-') {
+            trimmedOther[key] = ''
+          }
+        }
+      }
+
       const projectorsArray = projector.split('\n').map(item => {
         let trimmedItem = item.trim();
         if (trimmedItem == "IMAX 氙灯") trimmedItem = 'IMAX Xenon'
@@ -23,7 +33,7 @@ import fs from "fs";
 
       const feature = {
         type: "Feature",
-        properties: { ...other, projectorsArray },
+        properties: { ...trimmedOther, projectorsArray },
         geometry: {
           type: "Point",
           coordinates: [lng, lat],
