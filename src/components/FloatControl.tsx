@@ -120,7 +120,7 @@ export const FloatControl = (props: {
           className="text-gray-400 text-sm font-medium cursor-pointer"
           onClick={() => changeLanguage()}
         >
-          <span className={`${i18n.language == 'zh' && 'dark:text-white text-gray-600'}`}>简</span> / <span className={`${i18n.language == 'en' && 'text-white'}`}>EN</span>
+          <span className={`${i18n.language == 'zh' && 'dark:text-white text-gray-600'}`}>简</span> / <span className={`${i18n.language == 'en' && 'dark:text-white text-gray-600'}`}>EN</span>
         </button>
 
         <button className="dark:text-white text-gray-600 text-sm font-medium cursor-pointer" onClick={() => props.setAbout(!props.about)}>

@@ -45,7 +45,7 @@ const Filter = (props: {
         <div className="flex justify-center">
             <div
                 style={{ zIndex: '1' }}
-                className={"absolute flex justify-center top-0 font-medium w-11/12 max-w-2xl text-sm sm:text-base m-5 p-3 shadow sm:rounded-full rounded-2xl pr-4 pl-4 tracking-tight text-gray-800 dark:text-white backdrop-blur-md bg-white/40 shadow dark:bg-gray-900/30"}
+                className={"absolute flex justify-center top-0 font-medium w-11/12 max-w-2xl text-base mt-5 p-3 shadow sm:rounded-full rounded-2xl tracking-tight text-gray-800 dark:text-white backdrop-blur-md bg-white/40 shadow dark:bg-gray-900/30"}
             >
                 <div className="rounded max-w-xl justify-center items-center sm:flex">
                     <div className="flex items-center gap-2 sm:mr-5">
@@ -55,18 +55,18 @@ const Filter = (props: {
                                 checked={useFilter}
                                 onChange={() => setUseFilter(!useFilter)}
                                 className="sr-only peer" />
-                            <div className="w-7 h-4 sm:w-9 sm:h-5 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-gray-400 
+                            <div className="w-9 h-5 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-gray-400 
                             rounded-full peer bg-gray-600 dark:bg-gray-600 peer-checked:after:translate-x-full 
                             rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] 
                             after:absolute after:top-[2px] after:start-[2px] after:absolute  
-                            after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 sm:after:h-4 sm:after:w-4 
+                            after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 
                             after:transition-all dark:border-gray-500 peer-checked:bg-blue-600"></div>
                         </label>
                         <span className="">{t("filterProjector")}</span>
                     </div>
 
 
-                    <div className="flex gap-3 mt-2 sm:mt-0">
+                    <div className="flex gap-3 mt-3 sm:mt-0">
                         {ProjectorFilterOptionsList.map((filter) => (
                             <label key={filter} className={"transition flex justify-center items-center"}>
                                 <input
