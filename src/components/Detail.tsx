@@ -14,8 +14,10 @@ export const Detail = (props: {
 
     const getProjectorFeature = (p: string) => {
       const targetProjector = projectorsData.find(projector => projector.name == p)
-      if (targetProjector) return " (" + targetProjector.features.join(", ") + ")"
-      return ""
+      if (!targetProjector) return "";
+      const features = targetProjector.features.filter(f => f.length > 0);
+      if (features.length < 1) return ""
+      if (targetProjector) return " (" + features.join(", ") + ")"
     }
 
     return projectorsArray.map((p) => p + getProjectorFeature(p)).join(', ');
