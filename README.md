@@ -1,5 +1,7 @@
 # CineMap
 
+数据来源 / Data Source: @ArvinTingcn
+
 This project was created with React, TypeScript, and Mapbox API.
 
 ## Before starting
