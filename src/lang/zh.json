@@ -21,5 +21,9 @@
   "lastUpdated": "上次更新",
   "madeBy": "作者",
   "sourceCode": "源码",
-  "thanks": "感谢"
+  "thanks": "感谢",
+  "appleMaps": "苹果",
+  "gaodeMaps": "高德",
+  "baiduMaps": "百度",
+  "googleMaps": "谷歌"
 }

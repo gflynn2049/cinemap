@@ -21,5 +21,9 @@
   "lastUpdated": "Last Updated",
   "madeBy": "Made by",
   "sourceCode": "Source Code",
-  "thanks": "Thanks"
+  "thanks": "Thanks",
+  "appleMaps": "Apple",
+  "gaodeMaps": "Gaode",
+  "baiduMaps": "Baidu",
+  "googleMaps": "Google"
 }
