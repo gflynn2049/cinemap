@@ -15,7 +15,7 @@
   "is3D": "3D",
   "isXenon": "氙灯",
   "aspectRatio": "比例",
-  "filterProjector": "筛选放映机",
+  "filterProjector": "筛选放映机 (将隐藏信息不全的影院)",
   "about": "关于",
   "dataSource": "数据来源",
   "lastUpdated": "上次更新",

@@ -45,9 +45,9 @@ const Filter = (props: {
         <div className="flex justify-center">
             <div
                 style={{ zIndex: '1' }}
-                className={"absolute flex justify-center top-0 font-medium w-11/12 max-w-2xl text-base mt-5 p-3 shadow sm:rounded-full rounded-2xl tracking-tight text-gray-800 dark:text-white backdrop-blur-md bg-white/40 shadow dark:bg-gray-900/30"}
+                className={"absolute flex justify-center top-0 w-11/12 max-w-2xl text-base font-normal mt-5 p-3 shadow sm:rounded-full rounded-2xl text-gray-800 dark:text-white backdrop-blur-md bg-white/40 shadow dark:bg-gray-900/30"}
             >
-                <div className="rounded max-w-xl justify-center items-center sm:flex">
+                <div className="rounded max-w-2xl justify-center items-center md:flex">
                     <div className="flex items-center gap-2 sm:mr-5">
                         {/* filter switch */}
                         <label className="relative inline-flex items-center w-fit cursor-pointer">
@@ -66,7 +66,7 @@ const Filter = (props: {
                     </div>
 
 
-                    <div className="flex gap-3 mt-3 sm:mt-0">
+                    <div className="flex gap-3 mt-3 md:mt-0">
                         {ProjectorFilterOptionsList.map((filter) => (
                             <label key={filter} className={"transition flex justify-center items-center"}>
                                 <input
