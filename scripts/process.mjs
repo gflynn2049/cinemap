@@ -1,45 +1,65 @@
 import csv from "csv-parser";
 import fs from "fs";
+// import { projectorsData } from "../src/ProjectorsData.js"
 
 (async () => {
-
-  // const fileNames = ["imax", "dolby", "dolby.us"];
-  // for (const fileName of fileNames) {
-  // const fn = fileName == "dolby" || fileName == "dolby.us" ? "dolby" : "imax";
   const fileName = "output"
-  // res[fn] = {
   const res = {
     data: { features: [] },
-    // uniqueTypes: new Set(), // HashSet for storing unique types
   };
 
-  // todo: remove bom
+  // const uniqueTypes = {}
   fs.createReadStream(`../cinema-data/${fileName}.csv`)
     .pipe(csv())
     .on("data", (entry) => {
       const { lng, lat, projector, ...other } = entry;
 
-      const projectorsArray = projector.split('\n').map(item => item.trim());
-      const projectorsString = projectorsArray.join(', ')
+      const projectorsArray = projector.split('\n').map(item => {
+        let trimmedItem = item.trim();
+        if (trimmedItem == "IMAX 氙灯") trimmedItem = 'IMAX Xenon'
+        // uniqueTypes[trimmedItem] = (uniqueTypes[trimmedItem] || 0) + 1;
+        return trimmedItem;
+      });
+
       const feature = {
         type: "Feature",
-        properties: { ...other, projectorsArray, projectorsString },
+        properties: { ...other, projectorsArray },
         geometry: {
           type: "Point",
           coordinates: [lng, lat],
         },
       };
       res.data.features.push(feature);
-      // res.uniqueTypes.add(projector);
 
     })
     .on("end", () => {
-      // const uniqueTypesArray = Array.from(res.uniqueTypes);
-      // console.log("Unique Types:", uniqueTypesArray);
+
+      // const missingProjectorNames = [];
+
+      // Object.keys(uniqueTypes).forEach(key => {
+      //   if (key != '' && !projectorsData.some(projector => projector.name === key)) {
+      //     missingProjectorNames.push(key);
+      //   }
+      // });
+
+      // if (missingProjectorNames.length > 0) {
+      //   console.log('Projector names not present in projectorsData:', missingProjectorNames);
+      // }
+      // console.log("Unique Types:", JSON.stringify(uniqueTypes));
 
       fs.writeFile("./src/data.json", JSON.stringify(res), "utf-8", (err) => {
         if (err) console.log(err);
       });
     });
-  // }
+  const filePath = "./src/lastUpdated.json"
+
+  try {
+    const currentDate = new Date();
+    const data = { lastUpdated: currentDate.toISOString() };
+
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    console.log(`Data has been written to ${filePath}`);
+  } catch (error) {
+    console.error('Error writing to file:', error);
+  }
 })();

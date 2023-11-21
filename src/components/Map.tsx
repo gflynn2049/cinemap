@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import MapboxLanguage from '@mapbox/mapbox-gl-language';
 
 import { geo } from "../Store";
 import { Theatre } from "../types";
 import { useMapContext } from "./MapContext";
 import "./Map.scss";
 
+
+
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN as string
 
 const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
   const { map, mapContainer } = useMapContext();
 
-  const [lng, setLng] = useState(63.4207);
-  const [lat, setLat] = useState(59.4362);
-  const [zoom, setZoom] = useState(1.79);
+  const [lng, setLng] = useState(94.3597);
+  const [lat, setLat] = useState(48.1882);
+  const [zoom, setZoom] = useState(1.94);
 
   function createColorPoint(...color: number[]) {
     const d = 40;
@@ -42,9 +45,7 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
       center: [lng, lat],
       zoom: zoom,
     });
-
-    // (the +/- zoom buttons)
-    // map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+    map.current.addControl(new MapboxLanguage({ defaultLanguage: 'zh-Hans' }));
 
     // display coordinates
     map.current.on("move", () => {
@@ -103,6 +104,7 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
     });
 
     map.current.on("load", () => {
+
       // get user's location
       map.current.addControl(
         new mapboxgl.GeolocateControl({
@@ -201,11 +203,9 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
     });
   }, []);
 
+  // console.log(lng + " " + " " + lat + " " + zoom)
   return (
     <React.Fragment>
-      <div className="sidebar text-sm absolute m-4 p-2 shadow rounded-3xl pr-4 pl-4 font-bold tracking-tight text-gray-800 dark:text-white backdrop-blur-md bg-white/40 shadow dark:bg-gray-800/30">
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div>
       <div className="map-container" ref={mapContainer} />
     </React.Fragment>
   );
