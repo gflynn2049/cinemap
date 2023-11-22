@@ -15,7 +15,7 @@
   "is3D": "3D",
   "isXenon": "Xenon",
   "aspectRatio": "Aspect Ratio",
-  "filterProjector": "Filter Projector",
+  "filterProjector": "Filter",
   "about": "About",
   "dataSource": "Data Source",
   "lastUpdated": "Last Updated",
@@ -27,5 +27,8 @@
   "baiduMaps": "Baidu",
   "googleMaps": "Google",
   "displayAll": "Display All theatres",
-  "displayAllNote": "When deselected, theatres without registered projectors will be hidden"
+  "displayAllNote": "When deselected, theatres without registered projectors will be hidden",
+  "search": "Name, projectors, coordinates...",
+  "noResult": "No Result",
+  "typeToSearch": "Type to Search"
 }

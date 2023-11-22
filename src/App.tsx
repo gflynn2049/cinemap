@@ -18,19 +18,25 @@ function App() {
   const [displayFilter, setDisplayFilter] = useState(false);
   const [displayDolby, setDisplayDolby] = useState<boolean>(true);
   const [displayImax, setDisplayImax] = useState<boolean>(true);
+  const [displaySearch, setDisplaySearch] = useState(false);
+  useEffect(() => {
 
+    console.log(current)
+  }, [current])
   return (
     <div>
       <MapProvider>
         <Map setCurrent={(theatre: Theatre) => setCurrent(theatre)} />
         <Nav
+          displaySearch={displaySearch}
+          setDisplaySearch={(val: boolean) => setDisplaySearch(val)}
           displayDolby={displayDolby}
           displayImax={displayImax}
           about={about}
           setAbout={(val: boolean) => setAbout(val)}
           displayFilter={displayFilter}
           setDisplayFilter={(val: boolean) => setDisplayFilter(val)}
-          setCurrent={() => setCurrent(null)}
+          setCurrent={(theatre: Theatre | null) => setCurrent(theatre)}
         />
         <FloatControl
           displayDolby={displayDolby}
@@ -42,17 +48,18 @@ function App() {
         />
       </MapProvider>
       <Modal
+        displaySearch={displaySearch}
+        setDisplaySearch={() => setDisplaySearch(false)}
         current={!!current}
         setCurrent={() => setCurrent(null)}
-        about={!!about}
+        about={about}
         setAbout={() => setAbout(false)}
         displayFilter={displayFilter}
         setDisplayFilter={() => setDisplayFilter(false)}
       >
-
         <Detail current={current} setCurrent={() => setCurrent(null)} />
         <About
-          about={about} setAbout={() => { setAbout(false) }} setDisplayFilter={() => setDisplayFilter(false)} />
+          about={about} setAbout={() => setAbout(false)} setDisplayFilter={() => setDisplayFilter(false)} setDisplaySearch={() => setDisplaySearch(false)} />
       </Modal>
     </div>
   );

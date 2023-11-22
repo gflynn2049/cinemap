@@ -15,7 +15,7 @@
   "is3D": "3D",
   "isXenon": "氙灯",
   "aspectRatio": "比例",
-  "filterProjector": "筛选放映机",
+  "filterProjector": "筛选",
   "about": "关于",
   "dataSource": "数据来源",
   "lastUpdated": "上次更新",
@@ -27,5 +27,8 @@
   "baiduMaps": "百度",
   "googleMaps": "谷歌",
   "displayAll": "显示所有影院",
-  "displayAllNote": "取消选择时，未收录放映机的影院将不再显示"
+  "displayAllNote": "取消选择时，未收录放映机的影院将不再显示",
+  "search": "名称，放映设备，坐标...",
+  "noResult": "无相关结果",
+  "typeToSearch": "输入关键字开始搜索"
 }

@@ -9,6 +9,7 @@ export const Detail = (props: {
   current: Theatre | null;
   setCurrent: () => void;
 }) => {
+  console.log(props.current)
   const { t, i18n } = useTranslation();
 
   const getProjectorsInfo = (projectorsArray: string[]) => {
@@ -26,14 +27,30 @@ export const Detail = (props: {
 
     return projectorsArray.map((p) => p + getProjectorFeature(p)).join(', ');
   }
-
   const getValue = (key: string, value: string | string[] | null) => {
-    const res = key === 'projectorsArray'
-      ? getProjectorsInfo(JSON.parse(value as string))
-      : key === 'type' ? getBrandDisplayName[value as keyof typeof getBrandDisplayName] : value
+    if (typeof value === 'string') {
+      // check if the string is a valid JSON
+      try {
+        const parsedValue = JSON.parse(value);
+        return key === 'projectorsArray'
+          ? getProjectorsInfo(parsedValue)
+          : key === 'type'
+            ? getBrandDisplayName[parsedValue as keyof typeof getBrandDisplayName]
+            : parsedValue;
+      } catch (error) {
+        // parsing fails, assume it's a non-JSON string and handle accordingly
+        return key === 'type'
+          ? getBrandDisplayName[value as keyof typeof getBrandDisplayName]
+          : value;
+      }
+    } else {
+      // value is not a string, handle accordingly
+      return key === 'type'
+        ? getBrandDisplayName[value as unknown as keyof typeof getBrandDisplayName]
+        : value;
+    }
+  };
 
-    return res && res?.length > 0 ? res : ""
-  }
 
   const mapSVG = (
     <svg className="mr-1 w-3 h-3 text-gray-800 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 21">
@@ -47,10 +64,8 @@ export const Detail = (props: {
   const mapsButtonStyle = "text-sm tracking-tighter	flex justify-center items-center border-gray-300 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-500 rounded-md py-1 pr-3 pl-2"
   return (
     <div
-      style={{ zIndex: 502 }}
       className="absolute bottom-0 max-h-96 h-auto w-full justify-center flex" >
       <div
-        style={{ zIndex: 503 }}
         className={clsx(
           "detail backdrop-blur-md bg-white/80 border-t border-l border-r border-gray-200 shadow dark:bg-gray-800/80 dark:border-gray-700",
           props.current && "show"

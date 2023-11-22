@@ -1,5 +1,5 @@
 export interface Theatre {
-  coordinates: [number, number];
+  coordinates: [string, string];
   properties: {
     theatre: string,
     type: 'imax' | 'dolby',

@@ -8,6 +8,7 @@ const About = (
         about: boolean
         setAbout: () => void
         setDisplayFilter: () => void;
+        setDisplaySearch: () => void;
     }
 ) => {
     const { t, i18n } = useTranslation();
@@ -20,9 +21,8 @@ const About = (
 
     return (
         <div
-            style={{ zIndex: 504 }}
             className="absolute bottom-0 w-full justify-center flex"
-            onClick={() => { props.setDisplayFilter() }}>
+            onClick={() => { props.setDisplayFilter(); props.setDisplaySearch() }}>
             <div
                 className={clsx(
                     "detail backdrop-blur-md bg-white/80 border-t border-l border-r border-gray-200 shadow dark:bg-gray-800/80 dark:border-gray-700",

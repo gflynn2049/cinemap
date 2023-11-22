@@ -28,3 +28,32 @@ export const filterTheatres = (
     ) : features,
   };
 };
+
+
+export const theatres = Object.freeze(geo.features);
+
+const fuseOptions = {
+  // isCaseSensitive: false,
+  // includeScore: false,
+  // shouldSort: true,
+  // includeMatches: false,
+  // findAllMatches: false,
+  // minMatchCharLength: 1,
+  // location: 0,
+  // threshold: 0.6,
+  // distance: 100,
+  // useExtendedSearch: false,
+  // ignoreLocation: false,
+  // ignoreFieldNorm: false,
+  // fieldNormWeight: 1,
+  keys: [
+    "properties.theatre",
+    "properties.note",
+    "properties.projectorsArray",
+    "properties.date",
+    "properties.type",
+    "geometry.coordinates"
+  ]
+};
+
+export const fuse = new Fuse(theatres, fuseOptions);
