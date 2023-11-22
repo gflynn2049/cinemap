@@ -25,5 +25,7 @@
   "appleMaps": "苹果",
   "gaodeMaps": "高德",
   "baiduMaps": "百度",
-  "googleMaps": "谷歌"
+  "googleMaps": "谷歌",
+  "displayAll": "显示所有影院",
+  "displayAllNote": "取消选择时，未收录放映机的影院将不再显示"
 }

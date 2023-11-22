@@ -25,5 +25,7 @@
   "appleMaps": "Apple",
   "gaodeMaps": "Gaode",
   "baiduMaps": "Baidu",
-  "googleMaps": "Google"
+  "googleMaps": "Google",
+  "displayAll": "Display All theatres",
+  "displayAllNote": "When deselected, theatres without registered projectors will be hidden"
 }

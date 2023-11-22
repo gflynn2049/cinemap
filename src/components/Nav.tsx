@@ -12,11 +12,10 @@ const Nav = (props: {
     displayFilter: boolean;
     setDisplayFilter: (val: boolean) => void
     setCurrent: () => void
-
 }) => {
     const { t, i18n } = useTranslation();
     const { map } = useMapContext();
-
+    const [useFilter, setUseFilter] = useState<boolean>(false)
     const initialFilters = ProjectorFilterOptionsList.reduce((acc, filter) => {
         return { ...acc, [filter]: true };
     }, {});
@@ -63,20 +62,25 @@ const Nav = (props: {
             const source = map.current.getSource("source");
             if (source) {
                 let filterFunc = null
-
-                filterFunc = buildFilterFunction(projectorFilters)
-
+                if (useFilter) {
+                    filterFunc = buildFilterFunction(projectorFilters);
+                }
                 source.setData(filterTheatres(props.displayDolby, props.displayImax, filterFunc));
             }
         }
-    }, [projectorFilters, props.displayDolby, props.displayImax]);
+    }, [useFilter, projectorFilters, props.displayDolby, props.displayImax]);
 
+
+    const checkboxStyle = `w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded 
+    focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 
+    dark:bg-gray-600 dark:border-gray-500`
     return (
         <div
             style={{ zIndex: 1002 }}
             className="absolute w-full justify-center items-center flex">
             <div
-                className="relative justify-center items-center flex w-11/12 max-w-4xl text-sm font-normal mt-3 py-2 px-2 shadow sm:rounded-full rounded-2xl text-black dark:text-white backdrop-blur-md bg-white/40 shadow dark:bg-gray-900/80"
+                className="relative justify-center items-center flex w-11/12 max-w-4xl text-sm font-normal mt-3 py-2 px-2 shadow sm:rounded-full rounded-2xl 
+                text-black dark:text-white backdrop-blur-md bg-white/40 shadow dark:bg-gray-900/80"
             >
                 <div className="relative w-full max-w-2xl items-center justify-between flex">
                     <div className="flex-1 h-10">
@@ -94,19 +98,40 @@ const Nav = (props: {
                         </button>
                         {/* dropdown menu */}
                         {props.displayFilter &&
-                            <div
-                                className="relative top-4 shadow bg-white divide-y divide-gray-200 rounded-2xl w-fit max-w-lg dark:bg-gray-700 dark:divide-gray-600">
+                            <div className="relative top-4 shadow bg-white divide-y divide-gray-200 rounded-2xl w-fit max-w-lg dark:bg-gray-700 dark:divide-gray-600">
+                                <div className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200">
+                                    <div className="flex p-1 sm:p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition">
+                                        <div className="flex items-center h-5">
+                                            <input
+                                                type="checkbox"
+                                                checked={!useFilter}
+                                                onChange={() => setUseFilter(!useFilter)}
+                                                className={checkboxStyle}
+                                            />
+                                        </div>
+                                        <div className="ms-2 text-sm">
+                                            <label className="font-medium text-gray-900 dark:text-gray-200">
+                                                <div>{t("displayAll")}</div>
+                                                <p className="text-xs font-light text-gray-500 dark:text-gray-300">
+                                                    {t("displayAllNote")}
+                                                </p>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {/* projector filters */}
-                                <ul className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200">
-                                    {ProjectorFilterOptionsList.map((filter) => (<li>
-                                        <div className="flex p-1.5 sm:p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition">
+                                <ul className="p-3 space-y-0.5 text-sm text-gray-700 dark:text-gray-200">
+                                    {ProjectorFilterOptionsList.map((filter) =>
+                                    (<li>
+                                        <div className="flex p-1 sm:p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition">
                                             <div className="flex items-center h-5">
                                                 <input
                                                     type="checkbox"
+                                                    disabled={!useFilter}
                                                     checked={!!projectorFilters[filter as keyof ProjectorFilterOptions]}
                                                     onChange={() => handleProjectorFilterChange(filter)}
-                                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded 
-                                            focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                                    className={checkboxStyle}
                                                 />
                                             </div>
                                             <div className="ms-2 text-sm">
@@ -129,7 +154,9 @@ const Nav = (props: {
                             className="text-gray-800/50 dark:text-gray-400 cursor-pointer flex gap-0.5"
                             onClick={() => changeLanguage()}
                         >
-                            <span className={`${i18n.language == 'zh' && 'dark:text-gray-200 text-gray-900'}`}>简</span>/<span className={`${i18n.language == 'en' && 'dark:text-gray-200 text-gray-900'}`}>EN</span>
+                            <span className={`${i18n.language == 'zh' && 'dark:text-gray-200 text-gray-900'}`}>简</span>
+                            /
+                            <span className={`${i18n.language == 'en' && 'dark:text-gray-200 text-gray-900'}`}>EN</span>
                         </button>
                         <button className="text-gray-900 dark:text-gray-200  cursor-pointer"
                             onClick={() => { props.setAbout(!props.about); props.setDisplayFilter(false); props.setCurrent() }}>
