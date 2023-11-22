@@ -61,10 +61,10 @@ export const Detail = (props: {
     </svg>
   )
 
-  const mapsButtonStyle = "text-sm tracking-tighter	flex justify-center items-center border-gray-300 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-500 rounded-md py-1 pr-3 pl-2"
+  const mapsButtonStyle = "text-sm tracking-tighter	flex justify-center items-center cursor-pointer bg-gray-300/40 dark:bg-gray-800/30 dark:text-gray-200 rounded-md py-1 pr-3 pl-2"
   return (
     <div
-      className="absolute bottom-0 max-h-96 h-auto w-full justify-center flex" >
+      className="z-50 absolute bottom-0 max-h-96 h-auto w-full justify-center flex" >
       <div
         className={clsx(
           "detail backdrop-blur-md bg-white/80 border-t border-l border-r border-gray-200 shadow dark:bg-gray-800/80 dark:border-gray-700",
