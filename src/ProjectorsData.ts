@@ -28,6 +28,23 @@ export const ProjectorFilterOptionsList = [
     "isXenon",
 ]
 
+export type ProjectorTypeInfo = {
+    isFilm: string;
+    isLaser: string;
+    isDome: string;
+    is3D: string;
+    isXenon: string;
+};
+
+
+export const ProjectorTypeInfo: ProjectorTypeInfo = {
+    isFilm: "IMAX GT, IMAX GT Dome, IMAX GT 3D, IMAX SR, IMAX SR 3D, IMAX SR Dome, IMAX MPX",
+    isLaser: "IMAX GT Laser, IMAX GT 3D Laser, IMAX GT Laser Dome, IMAX Commercial Laser, IMAX Laser XT, Christie E3LH",
+    isDome: "IMAX GT Dome, IMAX SR Dome, IMAX GT Laser Dome",
+    is3D: "IMAX GT 3D, IMAX SR 3D, IMAX GT 3D Laser, Christie E3LH",
+    isXenon: "IMAX GT, IMAX GT Dome, IMAX GT 3D, IMAX SR, IMAX SR 3D, IMAX SR Dome, IMAX MPX, IMAX Xenon",
+}
+
 export const buildFilterFunction = (projectorFilters: ProjectorFilterOptions) => {
     return (projectorsArray: string[]) => {
         const validProjectors = projectorsData.filter((projector: any) =>

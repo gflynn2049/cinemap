@@ -32,8 +32,11 @@ export const Detail = (props: {
 
   const mapsButtonStyle = "text-sm tracking-tighter	flex justify-center items-center border-gray-300 bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-500 rounded-md py-1 pr-3 pl-2"
   return (
-    <div className="absolute bottom-0 max-h-96 w-full justify-center flex" onClick={() => props.setCurrent()}>
+    <div
+      style={{ zIndex: 502 }}
+      className="absolute bottom-0 max-h-96 h-auto w-full justify-center flex" >
       <div
+        style={{ zIndex: 503 }}
         className={clsx(
           "detail backdrop-blur-md bg-white/80 border-t border-l border-r border-gray-200 shadow dark:bg-gray-800/80 dark:border-gray-700",
           props.current && "show"
@@ -43,7 +46,6 @@ export const Detail = (props: {
           <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
             {props.current?.properties["theatre"]}
           </h1>
-
           <table className="px-2 mt-4 text-xs font-normal text-gray-700 dark:text-gray-400">
             <tbody>
               {props.current &&

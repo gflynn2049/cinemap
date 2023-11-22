@@ -6,7 +6,8 @@ import { useTranslation } from "react-i18next";
 const About = (
     props: {
         about: boolean
-        setAbout: () => void;
+        setAbout: () => void
+        setDisplayFilter: () => void;
     }
 ) => {
     const { t, i18n } = useTranslation();
@@ -18,7 +19,10 @@ const About = (
     });
 
     return (
-        <div className="absolute bottom-0 w-full justify-center flex" onClick={() => props.setAbout()}>
+        <div
+            style={{ zIndex: 504 }}
+            className="absolute bottom-0 w-full justify-center flex"
+            onClick={() => { props.setDisplayFilter() }}>
             <div
                 className={clsx(
                     "detail backdrop-blur-md bg-white/80 border-t border-l border-r border-gray-200 shadow dark:bg-gray-800/80 dark:border-gray-700",
@@ -33,6 +37,6 @@ const About = (
                     <div>{t("thanks")}: @白龙 @Ve</div>
                 </div>
             </div>
-        </div>)
+        </div >)
 }
 export default About
