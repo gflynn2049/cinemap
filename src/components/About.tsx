@@ -30,7 +30,7 @@ const About = (
                 )}
             >
                 <div className="text-sm leading-loose text-gray-900 dark:text-white">
-                    <div>{t("dataSource")}: @ArvinTingcn</div>
+                    <div>{t("dataSource")}: @ArvinTingcn, <a className="underline" target="blank" href="https://docs.google.com/spreadsheets/d/1m55a9PwrQ_4aPjbQ19htpwiAeHZ8RB7IcV0KWOB_7Bk/">Dolby Cinema Database</a></div>
                     <div>{t("lastUpdated")}: {formattedLastUpdate}</div>
                     <div>{t("madeBy")}: @<a className="underline" href="https://gflynn2049.vercel.app/" target="blank">gflynn2049</a></div>
                     <div>{t("sourceCode")}: <a href="https://github.com/gflynn2049/CineMap" className="underline" target="blank">GitHub</a></div>
