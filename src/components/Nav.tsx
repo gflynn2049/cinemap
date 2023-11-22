@@ -95,7 +95,7 @@ const Nav = (props: {
                         {/* dropdown menu */}
                         {props.displayFilter &&
                             <div
-                                className="relative top-4 shadow bg-white/60 backdrop-blur-md divide-y divide-gray-200 rounded-2xl w-fit max-w-lg dark:bg-gray-700 dark:divide-gray-600">
+                                className="relative top-4 shadow bg-white divide-y divide-gray-200 rounded-2xl w-fit max-w-lg dark:bg-gray-700 dark:divide-gray-600">
                                 {/* projector filters */}
                                 <ul className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200">
                                     {ProjectorFilterOptionsList.map((filter) => (<li>
