@@ -30,3 +30,4 @@ npm start
 [] bug fix: z-index
 [] feature: add more filters (15/70, 5/70, etc)
 [] feature: add location data (country/city/etc)
+[] add blank space between 中文 and text in other languages !important
