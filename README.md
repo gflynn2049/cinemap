@@ -24,3 +24,9 @@ npm install
 npm start
 
 ```
+
+## Todo
+
+[] bug fix: z-index
+[] feature: add more filters (15/70, 5/70, etc)
+[] feature: add location data (country/city/etc)

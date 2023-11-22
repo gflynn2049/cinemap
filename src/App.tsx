@@ -57,9 +57,9 @@ function App() {
         displayFilter={displayFilter}
         setDisplayFilter={() => setDisplayFilter(false)}
       >
-        <Detail current={current} setCurrent={() => setCurrent(null)} />
         <About
           about={about} setAbout={() => setAbout(false)} setDisplayFilter={() => setDisplayFilter(false)} setDisplaySearch={() => setDisplaySearch(false)} />
+        <Detail current={current} setCurrent={() => setCurrent(null)} />
       </Modal>
     </div>
   );
