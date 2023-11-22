@@ -3,7 +3,7 @@ import fs from "fs";
 // import { projectorsData } from "../src/ProjectorsData.js"
 
 (async () => {
-  const fileName = "output"
+  const fileName = "output_with_new_dolby_data"
   const res = {
     data: { features: [] },
   };
