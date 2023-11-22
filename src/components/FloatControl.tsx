@@ -3,8 +3,7 @@ import { brands, brandToColor } from "../constants";
 import clsx from "clsx";
 import { useMapContext } from "./MapContext";
 import { filterTheatres } from "../Store";
-import { useTranslation } from "react-i18next";
-
+import { getBrandDisplayName } from "../constants";
 
 export const FloatControl = (props: {
   displayDolby: boolean;
@@ -15,7 +14,6 @@ export const FloatControl = (props: {
   setAbout: (val: boolean) => void;
 }) => {
   const { map } = useMapContext();
-  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     if (map?.current) {
@@ -27,10 +25,7 @@ export const FloatControl = (props: {
     }
   }, [map, props.displayImax, props.displayDolby]);
 
-  const getBrandDisplayName = {
-    dolby: "Dolby",
-    imax: "IMAX",
-  };
+
   return (
     <div className="transition fixed bottom-0 left-0 mx-3 mb-10">
       <div className="rounded-xl gap-6 py-4 shadow flex flex-col p-2 backdrop-blur-md bg-white/80 shadow dark:bg-gray-800/80">

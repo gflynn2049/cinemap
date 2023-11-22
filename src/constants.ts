@@ -4,3 +4,8 @@ export const brandToColor: Record<string, string> = {
 };
 
 export const brands: ["imax", "dolby"] = ["imax", "dolby"];
+
+export const getBrandDisplayName = {
+  dolby: "Dolby",
+  imax: "IMAX",
+};

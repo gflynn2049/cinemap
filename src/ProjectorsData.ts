@@ -52,7 +52,7 @@ export const buildFilterFunction = (projectorFilters: ProjectorFilterOptions) =>
                 return projector[key] === projectorFilters[key]
             })
         )
-        console.log(validProjectors)
+        // console.log(validProjectors)
 
         return projectorsArray.some((projector) =>
             validProjectors.some((p) => p.name === projector)

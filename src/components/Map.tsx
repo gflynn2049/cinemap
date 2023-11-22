@@ -203,7 +203,7 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
     });
   }, []);
 
-  console.log(lng + " " + " " + lat + " " + zoom)
+  // console.log(lng + " " + " " + lat + " " + zoom)
   return (
     <div className="map-container" ref={mapContainer} />
   );

@@ -4,6 +4,7 @@ import { Theatre } from "../types";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { projectorsData } from "../ProjectorsData";
+import { getBrandDisplayName } from "../constants";
 export const Detail = (props: {
   current: Theatre | null;
   setCurrent: () => void;
@@ -14,13 +15,16 @@ export const Detail = (props: {
     const getProjectorFeature = (p: string) => {
       const targetProjector = projectorsData.find(projector => projector.name == p)
       if (!targetProjector) return "";
-      const features = targetProjector.features.filter(f => f.length > 0);
-      if (features.length < 1) return ""
-      if (targetProjector) return " (" + features.join(", ") + ")"
+      const features = targetProjector.features.filter(f => f.length > 0).join(', ');
+      const targetAspectRatio = targetProjector.aspectRatio
+      const aspectRatio = targetAspectRatio != null ? `${targetProjector.aspectRatio}:1` : ""
+      const res = " (" + [aspectRatio, features].filter(i => i.length > 0).join(', ') + ")"
+      return (res.length > 3) ? res : ""
     }
     return projectorsArray.map((p) => p + getProjectorFeature(p)).join(', ');
 
   }
+
   const mapSVG = (
     <svg className="mr-1 w-3 h-3 text-gray-800 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 21">
       <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
@@ -51,18 +55,17 @@ export const Detail = (props: {
               {props.current &&
                 Object.entries(props.current.properties).map(
                   ([key, value]) =>
-                    // key != "type" &&
                     key != "theatre" &&
-                    key != "projectorString" &&
                     value && value.length > 0 && (
                       <tr key={key}>
-                        <td className="pr-1 break-keep align-top text-gray-500 dark:text-gray-400 text-right py-1">
+                        <td className="pr-1 break-keep align-top text-gray-500 dark:text-gray-400 text-right py-1" style={{ whiteSpace: 'nowrap' }}>
                           {t(key)}
                         </td>
                         <td className="pl-2 align-top py-1 text-gray-800 dark:text-gray-300">
                           {key === 'projectorsArray'
                             ? getProjectorsInfo(JSON.parse(value as string))
-                            : value}
+                            : key === 'type' ? getBrandDisplayName[value as keyof typeof getBrandDisplayName] : value
+                          }
                         </td>
                       </tr>
                     )
