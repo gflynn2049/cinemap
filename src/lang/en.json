@@ -30,5 +30,6 @@
   "displayAllNote": "When deselected, theatres without registered projectors will be hidden",
   "search": "Name, projectors, coordinates...",
   "noResult": "No Result",
-  "typeToSearch": "Type to Search"
+  "typeToSearch": "Type to Search",
+  "coffee": "Buy me a coffee :D"
 }

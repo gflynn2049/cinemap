@@ -71,68 +71,71 @@ export const Detail = (props: {
           props.current && "show"
         )}
       >
-        <div>
-          <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {props.current?.properties["theatre"]}
-          </h1>
-          <table className="px-2 mt-4 text-xs font-normal text-gray-700 dark:text-gray-400">
-            <tbody>
-              {props.current &&
-                Object.entries(props.current.properties).map(([key, value]) => {
-                  if (key !== "theatre" && value && value.length > 0) {
-                    const formattedValue = getValue(key, value);
-                    if (formattedValue.length > 0) {
-                      return (
-                        <tr key={key}>
-                          <td className="pr-1 break-keep align-top text-gray-500 dark:text-gray-400 text-right py-1" style={{ whiteSpace: 'nowrap' }}>
-                            {t(key)}
-                          </td>
-                          <td className="pl-2 align-top py-1 text-gray-800 dark:text-gray-300">
-                            {formattedValue}
-                          </td>
-                        </tr>
-                      );
+        {props.current &&
+          <div className="p-6">
+            <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {props.current.properties["theatre"]}
+            </h1>
+            <table className="px-2 mt-4 text-xs font-normal text-gray-700 dark:text-gray-400">
+              <tbody>
+                {
+                  Object.entries(props.current.properties).map(([key, value]) => {
+                    if (key !== "theatre" && value && value.length > 0) {
+                      const formattedValue = getValue(key, value);
+                      if (formattedValue.length > 0) {
+                        return (
+                          <tr key={key}>
+                            <td className="pr-1 break-keep align-top text-gray-500 dark:text-gray-400 text-right py-1" style={{ whiteSpace: 'nowrap' }}>
+                              {t(key)}
+                            </td>
+                            <td className="pl-2 align-top py-1 text-gray-800 dark:text-gray-300">
+                              {formattedValue}
+                            </td>
+                          </tr>
+                        );
+                      }
                     }
-                  }
-                })}
-            </tbody>
-          </table>
-          {props.current &&
-            <div className="text-center mt-5 mb-1 gap-4 sm:gap-5 md:gap-6 flex justify-center">
-              <a
-                href={`https://uri.amap.com/marker?position=${props.current.coordinates.join(',')}&name=${props.current.properties.theatre}`}
-                target="_blank"
-                rel="noreferrer"
-                className={mapsButtonStyle}>
-                {mapSVG}
-                {t("gaodeMaps")}
-              </a>
-              <a
-                href={`http://api.map.baidu.com/marker?location=${props.current.coordinates.slice().reverse().join(',')}&title=${props.current.properties.theatre}&output=html`}
-                target="_blank"
-                rel="noreferrer"
-                className={mapsButtonStyle}>
-                {mapSVG}
-                {t("baiduMaps")}
-              </a>
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${props.current.coordinates.slice().reverse().join(',')}`}
-                target="_blank"
-                rel="noreferrer"
-                className={mapsButtonStyle}>
-                {mapSVG}
-                {t("googleMaps")}
-              </a>
-              <a
-                href={`https://maps.apple.com/?q=${props.current.coordinates.slice().reverse().join(',')}&name=${encodeURIComponent(props.current.properties.theatre)}`}
-                target="_blank"
-                rel="noreferrer"
-                className={mapsButtonStyle}>
-                {mapSVG}
-                {t("appleMaps")}
-              </a>
-            </div>}
-        </div>
+                  })
+                }
+              </tbody>
+            </table>
+            {props.current &&
+              <div className="text-center mt-5 mb-1 gap-4 sm:gap-5 md:gap-6 flex justify-center">
+                <a
+                  href={`https://uri.amap.com/marker?position=${props.current.coordinates.join(',')}&name=${props.current.properties.theatre}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={mapsButtonStyle}>
+                  {mapSVG}
+                  {t("gaodeMaps")}
+                </a>
+                <a
+                  href={`http://api.map.baidu.com/marker?location=${props.current.coordinates.slice().reverse().join(',')}&title=${props.current.properties.theatre}&output=html`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={mapsButtonStyle}>
+                  {mapSVG}
+                  {t("baiduMaps")}
+                </a>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${props.current.coordinates.slice().reverse().join(',')}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={mapsButtonStyle}>
+                  {mapSVG}
+                  {t("googleMaps")}
+                </a>
+                <a
+                  href={`https://maps.apple.com/?q=${props.current.coordinates.slice().reverse().join(',')}&name=${encodeURIComponent(props.current.properties.theatre)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={mapsButtonStyle}>
+                  {mapSVG}
+                  {t("appleMaps")}
+                </a>
+              </div>}
+          </div>
+        }
       </div>
     </div>
   );

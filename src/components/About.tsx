@@ -21,11 +21,11 @@ const About = (
 
     return (
         <div
-            className="absolute bottom-0 w-full justify-center flex"
+            className="absolute  bottom-0 w-full justify-center flex"
             onClick={() => { props.setDisplayFilter(); props.setDisplaySearch() }}>
             <div
                 className={clsx(
-                    "detail backdrop-blur-md bg-white/80 border-t border-l border-r border-gray-200 shadow dark:bg-gray-800/80 dark:border-gray-700",
+                    "detail p-6 backdrop-blur-md bg-white/80 border-t border-l border-r border-gray-200 shadow dark:bg-gray-800/80 dark:border-gray-700",
                     props.about && "show"
                 )}
             >
@@ -35,6 +35,7 @@ const About = (
                     <div>{t("madeBy")}: @<a className="underline" href="https://gflynn2049.vercel.app/" target="blank">gflynn2049</a></div>
                     <div>{t("sourceCode")}: <a href="https://github.com/gflynn2049/CineMap" className="underline" target="blank">GitHub</a></div>
                     <div>{t("thanks")}: @白龙 @Ve</div>
+                    <a target="blank" className="underline" href="https://www.buymeacoffee.com/gflynn2049">{t("coffee")}</a>
                 </div>
             </div>
         </div >)
