@@ -36,15 +36,6 @@ export type ProjectorTypeInfo = {
     isXenon: string;
 };
 
-
-export const ProjectorTypeInfo: ProjectorTypeInfo = {
-    isFilm: "IMAX GT, IMAX GT Dome, IMAX GT 3D, IMAX SR, IMAX SR 3D, IMAX SR Dome, IMAX MPX",
-    isLaser: "IMAX GT Laser, IMAX GT 3D Laser, IMAX GT Laser Dome, IMAX Commercial Laser, IMAX Laser XT, Christie E3LH",
-    isDome: "IMAX GT Dome, IMAX SR Dome, IMAX GT Laser Dome",
-    is3D: "IMAX GT 3D, IMAX SR 3D, IMAX GT 3D Laser, Christie E3LH",
-    isXenon: "IMAX GT, IMAX GT Dome, IMAX GT 3D, IMAX SR, IMAX SR 3D, IMAX SR Dome, IMAX MPX, IMAX Xenon",
-}
-
 export const buildFilterFunction = (projectorFilters: ProjectorFilterOptions) => {
     return (projectorsArray: string[]) => {
         const validProjectors = projectorsData.filter((projector: any) =>
@@ -76,8 +67,6 @@ export const projectorsData: Projector[] = [
     { name: "IMAX Commercial Laser", isFilm: false, isLaser: true, isDome: false, is3D: false, isXenon: false, aspectRatio: 1.90, features: ["商业激光", "单机双镜头"] },
     { name: "IMAX Laser XT", isFilm: false, isLaser: true, isDome: false, is3D: false, isXenon: false, aspectRatio: 1.90, features: ["激光XT", "单机单镜头"] },
     { name: "IMAX SR 3D Laser", isFilm: false, isLaser: true, isDome: false, is3D: true, isXenon: false, aspectRatio: null, features: [] },
-    { name: "IMAX GT 2D ONLY", isFilm: true, isLaser: false, isDome: false, is3D: false, isXenon: null, aspectRatio: null, features: [] },
-    { name: "IMAX GT,2D ONLY", isFilm: false, isLaser: false, isDome: false, is3D: false, isXenon: null, aspectRatio: null, features: [] },
     { name: "IMAXドーム", isFilm: null, isLaser: false, isDome: false, is3D: false, isXenon: null, aspectRatio: null, features: [] },
     { name: "IMAX®デジタルシアター", isFilm: false, isLaser: false, isDome: false, is3D: false, isXenon: null, aspectRatio: null, features: [] },
     { name: "IMAX®レーザー", isFilm: false, isLaser: false, isDome: false, is3D: false, isXenon: null, aspectRatio: null, features: [] },
@@ -88,3 +77,27 @@ export const projectorsData: Projector[] = [
     { name: "IMAX 氙灯Gen1", isFilm: false, isLaser: false, isDome: false, is3D: false, isXenon: true, aspectRatio: null, features: [] },
     { name: "科视Christie E3LH数字影院放映机", isFilm: false, isLaser: true, isDome: false, is3D: true, isXenon: null, aspectRatio: null, features: [] },
 ];
+
+const getProjectorProperty = (key: keyof Projector): string => {
+    let res: string[] = [];
+    projectorsData.forEach((p) => {
+        let info = ""
+        if (p[key]) {
+            info += p.name
+            if (p.aspectRatio) {
+                info += ` (${p.aspectRatio}:1)`
+            }
+            res.push(info)
+        }
+    })
+    return res.join(', ')
+};
+
+
+export const ProjectorTypeInfo: ProjectorTypeInfo = {
+    isFilm: getProjectorProperty('isFilm'),
+    isLaser: getProjectorProperty('isLaser'),
+    isDome: getProjectorProperty('isDome'),
+    is3D: getProjectorProperty('is3D'),
+    isXenon: getProjectorProperty('isXenon')
+}
