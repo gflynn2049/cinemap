@@ -35,7 +35,6 @@ const About = (
                     <div>{t("madeBy")}: @<a className="underline" href="https://gflynn2049.vercel.app/" target="blank">gflynn2049</a></div>
                     <div>{t("sourceCode")}: <a href="https://github.com/gflynn2049/CineMap" className="underline" target="blank">GitHub</a></div>
                     <div>{t("thanks")}: @白龙 @Ve</div>
-                    <a target="blank" className="underline" href="https://www.buymeacoffee.com/gflynn2049">{t("coffee")}</a>
                 </div>
             </div>
         </div >)
