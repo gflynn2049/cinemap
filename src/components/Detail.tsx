@@ -12,17 +12,27 @@ export const Detail = (props: {
   const { t, i18n } = useTranslation();
 
   const getProjectorsInfo = (projectorsArray: string[]) => {
+
     const getProjectorFeature = (p: string) => {
       const targetProjector = projectorsData.find(projector => projector.name == p)
       if (!targetProjector) return "";
+
       const features = targetProjector.features.filter(f => f.length > 0).join(', ');
       const targetAspectRatio = targetProjector.aspectRatio
       const aspectRatio = targetAspectRatio != null ? `${targetProjector.aspectRatio}:1` : ""
       const res = " (" + [aspectRatio, features].filter(i => i.length > 0).join(', ') + ")"
       return (res.length > 3) ? res : ""
     }
-    return projectorsArray.map((p) => p + getProjectorFeature(p)).join(', ');
 
+    return projectorsArray.map((p) => p + getProjectorFeature(p)).join(', ');
+  }
+
+  const getValue = (key: string, value: string | string[] | null) => {
+    const res = key === 'projectorsArray'
+      ? getProjectorsInfo(JSON.parse(value as string))
+      : key === 'type' ? getBrandDisplayName[value as keyof typeof getBrandDisplayName] : value
+
+    return res && res?.length > 0 ? res : ""
   }
 
   const mapSVG = (
@@ -53,23 +63,23 @@ export const Detail = (props: {
           <table className="px-2 mt-4 text-xs font-normal text-gray-700 dark:text-gray-400">
             <tbody>
               {props.current &&
-                Object.entries(props.current.properties).map(
-                  ([key, value]) =>
-                    key != "theatre" &&
-                    value && value.length > 0 && (
-                      <tr key={key}>
-                        <td className="pr-1 break-keep align-top text-gray-500 dark:text-gray-400 text-right py-1" style={{ whiteSpace: 'nowrap' }}>
-                          {t(key)}
-                        </td>
-                        <td className="pl-2 align-top py-1 text-gray-800 dark:text-gray-300">
-                          {key === 'projectorsArray'
-                            ? getProjectorsInfo(JSON.parse(value as string))
-                            : key === 'type' ? getBrandDisplayName[value as keyof typeof getBrandDisplayName] : value
-                          }
-                        </td>
-                      </tr>
-                    )
-                )}
+                Object.entries(props.current.properties).map(([key, value]) => {
+                  if (key !== "theatre" && value && value.length > 0) {
+                    const formattedValue = getValue(key, value);
+                    if (formattedValue.length > 0) {
+                      return (
+                        <tr key={key}>
+                          <td className="pr-1 break-keep align-top text-gray-500 dark:text-gray-400 text-right py-1" style={{ whiteSpace: 'nowrap' }}>
+                            {t(key)}
+                          </td>
+                          <td className="pl-2 align-top py-1 text-gray-800 dark:text-gray-300">
+                            {formattedValue}
+                          </td>
+                        </tr>
+                      );
+                    }
+                  }
+                })}
             </tbody>
           </table>
           {props.current &&
