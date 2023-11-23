@@ -20,6 +20,7 @@ const Nav = (props: {
     const { t, i18n } = useTranslation();
     const { map } = useMapContext();
     const [useFilter, setUseFilter] = useState<boolean>(false)
+    const [filterCount, setFilterCount] = useState<number>(0)
     const initialFilters = ProjectorFilterOptionsList.reduce((acc, filter) => {
         return { ...acc, [filter]: true };
     }, {})
@@ -67,6 +68,7 @@ const Nav = (props: {
             if (source) {
                 let filterFunc = null
                 if (useFilter) {
+                    setFilterCount(Object.values(projectorFilters).filter(value => value === true).length);
                     filterFunc = buildFilterFunction(projectorFilters);
                 }
                 source.setData(filterTheatres(props.displayDolby, props.displayImax, filterFunc));
@@ -108,7 +110,7 @@ const Nav = (props: {
                               dark:text-white transition cursor-pointer inline-flex items-center "
                                 type="button"
                                 onClick={() => { props.setDisplayFilter(!props.displayFilter); props.setAbout(false); props.setCurrent(null); props.setDisplaySearch(false) }}>
-                                {t("filterProjector")}
+                                {filterCount != null && useFilter ? `${t("filterProjector")} (${filterCount})` : t("filterProjector")}
                                 <svg className="w-2.5 h-2.5 ms-2"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 10 6">
