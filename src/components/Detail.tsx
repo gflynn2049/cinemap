@@ -67,7 +67,7 @@ export const Detail = (props: {
       className="absolute bottom-0 max-h-96 h-auto w-full justify-center flex" >
       <div
         className={clsx(
-          "detail backdrop-blur-md bg-white/80 border-t border-l border-r border-gray-200 shadow dark:bg-gray-800/80 dark:border-gray-700",
+          "detail bg-gray-100 border-t border-l border-r border-gray-200 shadow dark:bg-gray-700 dark:border-gray-600",
           props.current && "show"
         )}
       >
