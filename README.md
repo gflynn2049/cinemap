@@ -27,6 +27,8 @@ npm start
 
 ## Todo
 
+- [ ] bug: changing IMAX / Dolby after setting the filter will reset the filter.
+  - [ ] either: merge Nav and the FloatControl, or make the filter available for FloatControl
 - [ ] feature: add more filters (15/70, 5/70, etc)
 - [ ] feature: add location data (country/city/etc)
 - [ ] add blank space between 中文 and text in other languages !important
