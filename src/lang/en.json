@@ -3,6 +3,7 @@
   "type": "Type",
   "projectorsArray": "Projector Model",
   "date": "Day of Opening",
+  "addr": "Address",
   "ratio": "Aspect Ratio",
   "width": "Width / m",
   "height": "Height / m",

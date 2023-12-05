@@ -10,7 +10,7 @@ export const Detail = (props: {
   setCurrent: () => void;
 }) => {
   console.log(props.current)
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const getProjectorsInfo = (projectorsArray: string[]) => {
 

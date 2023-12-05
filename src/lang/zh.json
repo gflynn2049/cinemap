@@ -3,6 +3,7 @@
   "type": "类型",
   "projectorsArray": "放映机型号",
   "date": "开业时间",
+  "addr": "地址",
   "ratio": "银幕比例",
   "width": "银幕宽度 / m",
   "height": "银幕高度 / m",

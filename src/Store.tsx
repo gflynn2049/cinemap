@@ -52,6 +52,7 @@ const fuseOptions = {
     "properties.projectorsArray",
     "properties.date",
     "properties.type",
+    "properties.addr",
     "geometry.coordinates"
   ]
 };
