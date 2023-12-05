@@ -31,5 +31,7 @@
   "displayAllNote": "取消选择时，未收录放映机的影院将不再显示",
   "search": "名称，放映设备，坐标...",
   "noResult": "无相关结果",
-  "typeToSearch": "输入关键字开始搜索"
+  "typeToSearch": "输入关键字开始搜索",
+  "about-note": "如果你发现数据有误，欢迎提 issue 或 pr"
+
 }
