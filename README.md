@@ -29,6 +29,8 @@ npm start
 
 - [ ] bug: changing IMAX / Dolby after setting the filter will reset the filter.
   - [ ] either: merge Nav and the FloatControl, or make the filter available for FloatControl
-- [ ] feature: add more filters (15/70, 5/70, etc)
+- [ ] bug: language set to EN when page first loaded, however CN is displayed on the map
+- [ ] bug: some coordinates converted by Baidu were offset by some numbers. should use some other address -> coordinates transformation
+<!-- - [ ] feature: add more filters (15/70, 5/70, etc) -->
 - [ ] feature: add location data (country/city/etc)
-- [ ] add blank space between 中文 and text in other languages !important
+- [ ] misc: add blank space between 中文 and text in other languages !important
