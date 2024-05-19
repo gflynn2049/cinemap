@@ -14,17 +14,7 @@ export const filterTheatres = (
   displayImax: boolean,
   filterFunc: ((projectorsArray: string[]) => boolean) | null
 ) => {
-  let returnType: "all" | "dolby" | "imax" | "none";
-  if (displayImax && displayDolby) {
-    returnType = "all";
-  } else if (displayDolby) {
-    returnType = "dolby";
-  } else if (displayImax) {
-    returnType = "imax";
-  } else {
-    returnType = "none";
-  }
-
+  const returnType = displayImax && displayDolby ? "all" : displayDolby ? "dolby" : displayImax ? 'imax' : 'none';
   let featureSource = geo.features as any[];
 
   let featuresDataWithFilter: any = [];

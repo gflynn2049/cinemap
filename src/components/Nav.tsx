@@ -22,6 +22,8 @@ const Nav = (props: {
   displayFilter: boolean;
   setDisplayFilter: (val: boolean) => void;
   setCurrent: (theatre: Theatre | null) => void;
+  setProjectorFilters: (filters: ProjectorFilterOptions) => void;
+  setUseFilter: (val: boolean) => void;
 }) => {
   const { t, i18n } = useTranslation();
   const { map } = useMapContext();
@@ -81,12 +83,14 @@ const Nav = (props: {
           );
           filterFunc = buildFilterFunction(projectorFilters);
         }
+        props.setProjectorFilters(projectorFilters)
+        props.setUseFilter(useFilter)
         source.setData(
           filterTheatres(props.displayDolby, props.displayImax, filterFunc)
         );
       }
     }
-  }, [useFilter, projectorFilters, props.displayDolby, props.displayImax]);
+  }, [map, useFilter, projectorFilters, props.displayDolby, props.displayImax]);
 
   const checkboxStyle = `w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded 
     focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 

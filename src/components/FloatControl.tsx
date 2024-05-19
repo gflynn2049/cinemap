@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useMapContext } from "./MapContext";
 import { filterTheatres } from "../Store";
 import { getBrandDisplayName } from "../constants";
+import { buildFilterFunction } from "../ProjectorsData";
 
 export const FloatControl = (props: {
   displayDolby: boolean;
@@ -12,6 +13,8 @@ export const FloatControl = (props: {
   setDisplayImax: () => void;
   about: boolean;
   setAbout: (val: boolean) => void;
+  projectorFilters: any;
+  useFilter: boolean
 }) => {
   const { map } = useMapContext();
 
@@ -20,10 +23,14 @@ export const FloatControl = (props: {
       const source = map.current.getSource("source");
       // check if the source exists before calling setData
       if (source) {
-        source.setData(filterTheatres(props.displayDolby, props.displayImax, null));
+        let filterFunc = null;
+        if (props.useFilter) {
+          filterFunc = buildFilterFunction(props.projectorFilters);
+        }
+        source.setData(filterTheatres(props.displayDolby, props.displayImax, filterFunc));
       }
     }
-  }, [map, props.displayImax, props.displayDolby]);
+  }, [map, props.displayImax, props.displayDolby, props.useFilter, props.projectorFilters]);
 
 
   return (

@@ -6,6 +6,7 @@ import { MapProvider } from "./components/MapContext";
 import About from "./components/About";
 import Nav from "./components/Nav";
 import { FloatControl } from "./components/FloatControl";
+import { ProjectorFilterOptions } from "./ProjectorsData";
 
 import { Theatre } from "./types";
 
@@ -19,6 +20,8 @@ function App() {
   const [displayDolby, setDisplayDolby] = useState<boolean>(true);
   const [displayImax, setDisplayImax] = useState<boolean>(true);
   const [displaySearch, setDisplaySearch] = useState(false);
+  const [projectorFilters, setProjectorFilters] = useState<ProjectorFilterOptions>({});
+  const [useFilter, setUseFilter] = useState(false);
 
   useEffect(() => {
     console.log(current);
@@ -29,6 +32,8 @@ function App() {
       <MapProvider>
         <Map setCurrent={(theatre: Theatre) => setCurrent(theatre)} />
         <Nav
+          setUseFilter={setUseFilter}
+          setProjectorFilters={setProjectorFilters}
           displaySearch={displaySearch}
           setDisplaySearch={(val: boolean) => setDisplaySearch(val)}
           displayDolby={displayDolby}
@@ -40,6 +45,8 @@ function App() {
           setCurrent={(theatre: Theatre | null) => setCurrent(theatre)}
         />
         <FloatControl
+          projectorFilters={projectorFilters}
+          useFilter={useFilter}
           displayDolby={displayDolby}
           setDisplayDolby={() => setDisplayDolby(!displayDolby)}
           displayImax={displayImax}
