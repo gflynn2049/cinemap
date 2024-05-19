@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
-import MapboxLanguage from '@mapbox/mapbox-gl-language';
+import MapboxLanguage from "@mapbox/mapbox-gl-language";
 
 import { geo } from "../Store";
 import { Theatre } from "../types";
 import { useMapContext } from "./MapContext";
 import "./Map.scss";
 
-
-
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN as string
 
-const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
+const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = props => {
   const { map, mapContainer } = useMapContext();
 
   const [lng, setLng] = useState(105.4544);
@@ -39,13 +37,14 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
 
   useEffect(() => {
     if (map.current) return; // initialize
+
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/gflynn2049/clp01kis900b101pq97kvhl5i",
       center: [lng, lat],
       zoom: zoom,
     });
-    map.current.addControl(new MapboxLanguage({ defaultLanguage: 'zh-Hans' }));
+    map.current.addControl(new MapboxLanguage({ defaultLanguage: "en" }));
 
     // display coordinates
     map.current.on("move", () => {
@@ -61,9 +60,7 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
     });
 
     map.current.on("click", "layer", (e: any) => {
-      if (!e.features) {
-        return;
-      }
+      if (!e.features) return;
 
       const coordinates = e.features[0].geometry.coordinates.slice();
       const properties = e.features[0].properties;
@@ -104,7 +101,6 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
     });
 
     map.current.on("load", () => {
-
       // get user's location
       map.current.addControl(
         new mapboxgl.GeolocateControl({
@@ -147,7 +143,6 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
           // "icon-ignore-placement": true,
           // "text-allow-overlap": true,
           // "text-ignore-placement": false
-
         },
         paint: {
           "text-color": "#7e6c56",
@@ -204,9 +199,7 @@ const Map: React.FC<{ setCurrent: (current: Theatre) => void }> = (props) => {
   }, []);
 
   // console.log(lng + " " + " " + lat + " " + zoom)
-  return (
-    <div className="map-container" ref={mapContainer} />
-  );
+  return <div className="map-container" ref={mapContainer} />;
 };
 
 export default Map;

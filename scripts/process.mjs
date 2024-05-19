@@ -9,7 +9,7 @@ import fs from "fs";
   };
 
   // const uniqueTypes = {}
-  fs.createReadStream(`../cinema-data/${fileName}.csv`)
+  fs.createReadStream(`./cinemap-data/${fileName}.csv`)
     .pipe(csv())
     .on("data", (entry) => {
       const { lng, lat, projector, ...other } = entry;

@@ -6,29 +6,39 @@ export const rawData = Object.freeze(raw);
 
 export const geo = Object.freeze({
   type: "FeatureCollection",
-  features: Object.values(rawData).flatMap((i) => i.features),
+  features: Object.values(rawData).flatMap(i => i.features),
 });
 
 export const filterTheatres = (
   displayDolby: boolean,
   displayImax: boolean,
-  filterFunc: ((projectorsArray: string[]) => boolean) | null,
+  filterFunc: ((projectorsArray: string[]) => boolean) | null
 ) => {
   const returnType = displayImax && displayDolby ? "all" : displayDolby ? "dolby" : displayImax ? 'imax' : 'none';
-  let features = geo.features as any[]
-  if (returnType == 'none') return {
-    ...geo,
-    features: []
+  let featureSource = geo.features as any[];
+
+  let featuresDataWithFilter: any = [];
+  if (filterFunc) {
+    featuresDataWithFilter = featureSource.filter(theatre =>
+      filterFunc(theatre.properties.projectorsArray)
+    );
+  } else {
+    featuresDataWithFilter = featureSource;
   }
-  if (returnType != 'all') features = features.filter((theatre) => theatre.properties["type"] === returnType)
+  if (returnType === "none") {
+    featuresDataWithFilter = [];
+  }
+  if (returnType !== "all") {
+    featuresDataWithFilter = featuresDataWithFilter.filter(
+      (theatre: any) => theatre.properties["type"] === returnType
+    );
+  }
+
   return {
     ...geo,
-    features: filterFunc ? features.filter(
-      (theatre) => filterFunc(theatre.properties.projectorsArray)
-    ) : features,
+    features: featuresDataWithFilter,
   };
 };
-
 
 export const theatres = Object.freeze(geo.features);
 
@@ -53,8 +63,8 @@ const fuseOptions = {
     "properties.date",
     "properties.type",
     "properties.addr",
-    "geometry.coordinates"
-  ]
+    "geometry.coordinates",
+  ],
 };
 
 export const fuse = new Fuse(theatres, fuseOptions);
